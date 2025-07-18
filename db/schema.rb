@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+ feature-orders
 ActiveRecord::Schema.define(version: 2025_07_17_074849) do
 
   create_table "order_details", force: :cascade do |t|
@@ -18,10 +19,18 @@ ActiveRecord::Schema.define(version: 2025_07_17_074849) do
     t.integer "price"
     t.integer "amount"
     t.integer "making_status"
+
+ActiveRecord::Schema.define(version: 2025_07_17_034411) do
+
+  create_table "admins", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+ develop
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+ feature-orders
   create_table "orders", force: :cascade do |t|
     t.integer "customer_id"
     t.string "name"
@@ -31,6 +40,14 @@ ActiveRecord::Schema.define(version: 2025_07_17_074849) do
     t.integer "total_payment"
     t.integer "payment_method"
     t.integer "status"
+
+  create_table "items", force: :cascade do |t|
+    t.integer "genre_id"
+    t.string "name", default: "", null: false
+    t.text "introduction", default: "", null: false
+    t.integer "price", null: false
+    t.boolean "is_active", default: true, null: false
+ develop
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
