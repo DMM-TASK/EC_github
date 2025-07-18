@@ -4,7 +4,15 @@ class Customer < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :address, dependent: :destroy
-  has_many :cart_item, dependent: :destroy
+  has_many :orderaddress, dependent: :destroy
+  has_many :cart_items, dependent: :destroy
   has_many :order, dependent: :destroy
+
+  def full_name
+    last_name + '' + first_name
+  end
+
+  def full_name_kana
+    last_name_kana + '' + first_name_kana
+  end
 end
