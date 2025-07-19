@@ -1,0 +1,20 @@
+<h2>商品説明</h2>
+
+<h2>商品名</h2>
+<p><%= @item.name %></p>
+
+<h2>商品説明</h2>
+<p><%= @item.introduction %></p>
+
+<h2>ジャンル</h2>
+<p><%= @item.genre.name %></p>
+
+<h2>税込価格<br>(税抜価格)</h2>
+<p><%= "#{(@item.price * 1.1).to_i}（#{@item.price}）円" %></p>
+<p><%= (@item.price * 1.1).floor %>円（<%= @item.price %>円）</p>
+<p><%= (@item.price * 1.1).floor %>円（<%= @item.price %>円）</p>
+
+<h2>販売ステータス</h2>
+<p><%= @item.is_active ? "販売中" : "販売停止中" %></p>
+
+<%= link_to 編集する, edit_item_path(@item.id) %>
