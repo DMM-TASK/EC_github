@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :customers
   root to: "homes#top"
   get "/about" => "homes#about"
+  resources :items, only:[:show, :index]
   get "customers/my_page/:id" => "customers#show", as: 'customers_my_page'
   get "customers/information/:id" => "customers#edit",as: 'customers_information'
   patch "customers/my_page/:id" => "customers#update"

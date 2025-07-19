@@ -6,9 +6,6 @@ class ApplicationController < ActionController::Base
     customers_my_page_path(current_customer.id)
   end
 
-  def after_sign_out_path(resource)
-    about_path
-  end
 
   protected
   def configure_permitted_parameters
