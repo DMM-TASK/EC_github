@@ -1,15 +1,16 @@
-<div class="container">
-  <h3>ジャンル編集</h3>
+<div class="container my-5">
+  <h3 class="p-3 mb-2 table-active">ジャンル編集</h3>
 
-  <div class="row mt-4 mb-2">
+  <div class="row mt-5">
     <%= form_with model: @genre, url: admin_genre_path(@genre), method: :patch, local: true do |f| %>
-      <table>
+      <table class="table table-borderless w-auto">
         <tbody>
           <tr>
             <td>ジャンル名</td>
             <td></td>
             <td><%= f.text_field :name %></td>
-            <td><%= f.submit "変更を保存" %></td>
+            <td></td>
+            <td><%= f.submit "変更を保存",class:"btn btn-success" %></td>
           </tr>
         </tbody>
       </table>
