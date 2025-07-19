@@ -1,0 +1,49 @@
+<h2>注文履歴詳細</h2>
+
+<h3>注文情報</h3>
+<p><strong>注文日：</strong><%= @order.created_at.strftime("%Y年%m月%d日") %></p>
+<p><strong>配送先：</strong><%= @order.postal_code %> <%= @order.address %> <%= @order.name %></p>
+<p><strong>支払方法：</strong><%= @order.payment_method == "credit_card" ? "クレジットカード" : "銀行振込" %></p>
+<p><strong>ステータス：</strong><%= @order.status_i18n %></p>
+
+<h3>注文内容</h3>
+<table>
+  <thead>
+    <tr>
+      <th>商品</th>
+      <th>単価（税込）</th>
+      <th>個数</th>
+      <th>小計</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @order_details.each do |detail| %>
+      <tr>
+        <td><%= detail.item.name %></td>
+        <td><%= detail.price %>円</td>
+        <td><%= detail.amount %></td>
+        <td><%= detail.price * detail.amount %>円</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% subtotal = @order_details.sum { |detail| detail.price * detail.amount } %>
+
+<hr>
+
+<h3>請求情報</h3>
+<table>
+  <tr>
+    <th>商品合計</th>
+    <td><%= subtotal %>円</td>
+  </tr>
+  <tr>
+    <th>配送料</th>
+    <td><%= @order.shipping_cost %>円</td>
+  </tr>
+  <tr>
+    <th>ご請求額</th>
+    <td><strong><%= @order.total_payment %>円</strong></td>
+  </tr>
+</table>

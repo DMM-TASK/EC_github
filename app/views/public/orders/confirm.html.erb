@@ -1,0 +1,43 @@
+<h2>注文情報確認</h2>
+
+<table>
+  <tr>
+    <th>商品名</th>
+    <th>単価</th>
+    <th>数量</th>
+    <th>小計</th>
+  </tr>
+  <% total = 0 %>
+  <% @cart_items.each do |item| %>
+    <tr>
+      <td><%= item.item.name %></td>
+      <td><%= item.item.price %></td>
+      <td><%= item.amount %></td>
+      <td><%= sub_total = item.item.price * item.amount %></td>
+    </tr>
+    <% total += sub_total %>
+  <% end %>
+  <tr>
+    <td colspan="3">合計</td>
+    <td><%= total + 800 %>（税込・送料800円）</td>
+  </tr>
+</table>
+
+<h3>支払方法</h3>
+<p>
+  <%= @order.payment_method == "0" ? "クレジットカード" : "銀行振込" %>
+</p>
+
+<h3>お届け先</h3>
+<p>〒<%= @order.postal_code %></p>
+<p><%= @order.address %></p>
+<p><%= @order.name %></p>
+
+
+<%= form_with model: @order, url: public_orders_path, method: :post do |f| %>
+  <%= hidden_field_tag :order_data, @order.to_json %>
+  <%= hidden_field_tag :cart_item_ids, @cart_items.map(&:id).join(",") %>
+  <%= f.submit "注文を確定する" %>
+<% end %>
+
+<%= link_to "戻る", new_public_order_path %>
