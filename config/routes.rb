@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
   devise_for :customers
+  resources :items, only:[:show, :index]
   root to: "homes#top"
   get "/about" => "homes#about"
-  resources :items, only:[:show, :index]
-  get "customers/my_page/:id" => "customers#show", as: 'customers_my_page'
-  get "customers/information/:id" => "customers#edit",as: 'customers_information'
+  
+  get "customers/my_page/:id" => "customers#show", as: 'customer'
+  get "customers/information/:id" => "customers#edit",as: 'edit_customer'
   patch "customers/my_page/:id" => "customers#update"
-  get "/customers/unsubscribe" => "customers#unsubscribe"
-  patch "/customers/withdraw" => "customers#withdraw"
+  get "/customers/unsubscribe" => "customers#unsubscribe", as: 'unsubscribe_customer'
+  patch "/customers/withdraw" => "customers#withdraw", as: 'withdraw_customer'
   
   devise_for :admins
-  devise_for :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
