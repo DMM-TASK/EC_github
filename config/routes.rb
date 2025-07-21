@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
 
 
- 
+  namespace :admin do
+    resources :orders, only: [:index, :show, :update]
+    resources :order_details, only: [:update]
+  end
+
   namespace :admin do
     root to: 'homes#top'
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
   end
-
-  devise_for :admins
-  
-
 
   scope module: :public do
     get 'addresses', to: 'addresses#index'
@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     delete 'cart_items/destroy_all', to: 'cart_items#destroy_all'
     post 'cart_items', to: 'cart_items#create'
   end 
+
 
   devise_for :customers
 
