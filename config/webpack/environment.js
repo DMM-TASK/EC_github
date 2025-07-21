@@ -11,4 +11,6 @@ environment.plugins.prepend(
     jQuery: 'jquery/src/jquery',
     Popper: 'popper.js'
   })
+
 )
+
