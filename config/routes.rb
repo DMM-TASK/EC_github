@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
  
   namespace :admin do
     root to: 'homes#top'
@@ -8,6 +9,7 @@ Rails.application.routes.draw do
 
   devise_for :admins
   
+
 
   scope module: :public do
     get 'addresses', to: 'addresses#index'
@@ -42,6 +44,8 @@ Rails.application.routes.draw do
   patch "/customers/withdraw" => "customers#withdraw", as: 'withdraw_customer'
   
   devise_for :admins
+
+  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
