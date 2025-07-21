@@ -2,13 +2,10 @@ Rails.application.routes.draw do
 
 
   namespace :admin do
-    resources :orders, only: [:index, :show, :update]
-    resources :order_details, only: [:update]
-  end
-
-  namespace :admin do
     root to: 'homes#top'
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
+    resources :orders, only: [:index, :show, :update]
+    resources :order_details, only: [:update]
   end
 
   scope module: :public do
