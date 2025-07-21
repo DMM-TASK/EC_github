@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   end 
 
   devise_for :customers
+  devise_for :admins
+
   root to: "homes#top"
   get "/about" => "homes#about"
   get "customers/my_page/:id" => "customers#show", as: 'customers_my_page'
@@ -29,8 +31,4 @@ Rails.application.routes.draw do
   get "/customers/unsubscribe" => "customers#unsubscribe"
   patch "/customers/withdraw" => "customers#withdraw"
 
-end
-
-  devise_for :admins
-  devise_for :users
 end
