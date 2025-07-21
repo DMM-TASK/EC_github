@@ -8,22 +8,16 @@ class CustomersController < ApplicationController
   end
   
   def update
-    customer = Customer.find(params[:id])
-    customer.update(customer_params)
-    redirect_to customers_my_page_path(customer.id)
+    @customer = Customer.find(params[:id])
+    @customer.update(customer_params)
+    redirect_to customer_path(@customer.id)
   end
 
 
   def unsubscribe
-    
   end
 
-  def withdraw
-    @customer= Customer.find(current_customer.id)
-    @customer.update(is_active: false)
-    reset_session
-    redirect_to root_path
-  end
+  
 
   private
 
