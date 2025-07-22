@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 2025_07_19_123426) do
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
 
+
   create_table "genres", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -92,11 +93,18 @@ ActiveRecord::Schema.define(version: 2025_07_19_123426) do
     t.integer "genre_id"
     t.string "name", default: "", null: false
     t.text "introduction", default: "", null: false
+
+  end
+  
+ create_table "order_details", force: :cascade do |t|
+    t.integer "order_id"
+    t.integer "item_id"
     t.integer "price", null: false
     t.boolean "is_active", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
+
 
   create_table "order_details", force: :cascade do |t|
     t.integer "order_id", null: false
