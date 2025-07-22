@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
     else
       customer_path(current_customer.id)
     end
-  end
+
 
     case resource
     when Admin
@@ -29,5 +29,4 @@ class ApplicationController < ActionController::Base
 
   protected
 
-end
-
+  end
