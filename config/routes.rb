@@ -1,30 +1,30 @@
 Rails.application.routes.draw do
 
-
-  namespace :admin do
-    resources :orders, only: [:index, :show, :update]
-    resources :order_details, only: [:update]
-  end
-
   namespace :admin do
     root to: 'homes#top'
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
+    resources :orders, only: [:index, :show, :update]
+    resources :order_details, only: [:update]
+    resources :genres, only: [:index, :create, :edit, :update]
   end
 
   scope module: :public do
-    get 'addresses', to: 'addresses#index'
-    get 'addresses/:id/edit', to: 'addresses#edit'
-    post 'addresses', to: 'addresses#create'
-    patch 'addresses/:id', to: 'addresses#update'
-    delete 'addresses/:id', to: 'addresses#destroy'
+    resources :items, only: [:index, :show]
+    resources :addresses, only: [:index, :edit, :create, :update, :destroy]
   
-  resources :orders, only: [:new, :create, :index, :show] do
-    collection do
-      post 'confirm'  
-      get 'thanks'  
+    resources :orders, only: [:new, :create, :index, :show] do
+      collection do
+        post 'confirm'  
+        get 'thanks'  
     end
   end 
   
+  resources :cart_items, only: [:index, :update, :destroy, :create] do
+    collection do
+      delete 'destroy_all'
+    end
+  end
+
     get 'cart_items', to: 'cart_items#index'
     patch 'cart_items/:id', to: 'cart_items#update'
     delete 'cart_items/:id', to: 'cart_items#destroy'
@@ -32,8 +32,8 @@ Rails.application.routes.draw do
     post 'cart_items', to: 'cart_items#create'
   end 
 
-
   devise_for :customers
+  devise_for :admins
 
   root to: "homes#top"
   get "/about" => "homes#about"
@@ -43,11 +43,6 @@ Rails.application.routes.draw do
   patch "customers/my_page/:id" => "customers#update"
   get "/customers/unsubscribe" => "customers#unsubscribe", as: 'unsubscribe_customer'
   patch "/customers/withdraw" => "customers#withdraw", as: 'withdraw_customer'
-  
-  devise_for :admins
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-
 end
