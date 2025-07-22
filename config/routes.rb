@@ -33,17 +33,21 @@ Rails.application.routes.draw do
   end 
 
   devise_for :customers
-  devise_for :admins
 
+  devise_for :admins
   root to: "homes#top"
+
+  resources :items, only: [:show, :index] 
+  root  to: "homes#top"
+
   get "/about" => "homes#about"
-  
   get "customers/my_page/:id" => "customers#show", as: 'customer'
-  get "customers/information/:id" => "customers#edit",as: 'edit_customer'
-  patch "customers/my_page/:id" => "customers#update"
+  get "customers/information/:id/edit" => "customers#edit", as: 'edit_customer'
+  patch "customers/my_page/:id" => "customers#update", as: 'update_customer'
   get "/customers/unsubscribe" => "customers#unsubscribe", as: 'unsubscribe_customer'
   patch "/customers/withdraw" => "customers#withdraw", as: 'withdraw_customer'
   
+
   devise_for :admins, controllers: {
   sessions: 'admins/sessions',
   registrations: 'admins/registrations',
