@@ -16,12 +16,12 @@ class Customer < ApplicationRecord
     first_name_kana + " " + last_name_kana
   end
 
-  def customer_status
-    if is_active == false
-      "退会"
-    else
-      "有効"
-    end
+  def active_for_authentication?
+    super && is_active?
+  end
+
+  def inactive_message
+    is_active? ? super : :deactivated_account
   end
   
 end
