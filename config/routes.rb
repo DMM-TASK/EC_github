@@ -1,14 +1,10 @@
 Rails.application.routes.draw do
-
-
-  namespace :admin do
-    resources :orders, only: [:index, :show, :update]
-    resources :order_details, only: [:update]
-  end
-
   namespace :admin do
     root to: 'homes#top'
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
+    resources :orders, only: [:index, :show, :update]
+    resources :order_details, only: [:update]
+    resources :genre
   end
 
   scope module: :public do
@@ -32,22 +28,21 @@ Rails.application.routes.draw do
     post 'cart_items', to: 'cart_items#create'
   end 
 
-
   devise_for :customers
-
-  root to: "homes#top"
+  resources :items, only: [:show, :index] 
+  root  to: "homes#top"
   get "/about" => "homes#about"
-  
   get "customers/my_page/:id" => "customers#show", as: 'customer'
-  get "customers/information/:id" => "customers#edit",as: 'edit_customer'
-  patch "customers/my_page/:id" => "customers#update"
+  get "customers/information/:id/edit" => "customers#edit", as: 'edit_customer'
+  patch "customers/my_page/:id" => "customers#update", as: 'update_customer'
   get "/customers/unsubscribe" => "customers#unsubscribe", as: 'unsubscribe_customer'
   patch "/customers/withdraw" => "customers#withdraw", as: 'withdraw_customer'
   
-  devise_for :admins
 
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  devise_for :admins, controllers: {
+  sessions: 'admins/sessions',
+  registrations: 'admins/registrations',
+  passwords: 'admins/passwords'
+ }
 
 end
