@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   root to: "homes#top"
 
   resources :items, only: [:show, :index] 
-  root  to: "homes#top"
+  
 
   get "/about" => "homes#about"
   get "customers/my_page/:id" => "customers#show", as: 'customer'
@@ -47,12 +47,6 @@ Rails.application.routes.draw do
   get "/customers/unsubscribe" => "customers#unsubscribe", as: 'unsubscribe_customer'
   patch "/customers/withdraw" => "customers#withdraw", as: 'withdraw_customer'
   
-
-  devise_for :admins, controllers: {
-  sessions: 'admins/sessions',
-  registrations: 'admins/registrations',
-  passwords: 'admins/passwords'
- }
 
 
 end
