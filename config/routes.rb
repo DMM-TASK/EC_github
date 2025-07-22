@@ -43,6 +43,12 @@ Rails.application.routes.draw do
   patch "customers/my_page/:id" => "customers#update"
   get "/customers/unsubscribe" => "customers#unsubscribe", as: 'unsubscribe_customer'
   patch "/customers/withdraw" => "customers#withdraw", as: 'withdraw_customer'
+  
+  devise_for :admins, controllers: {
+  sessions: 'admins/sessions',
+  registrations: 'admins/registrations',
+  passwords: 'admins/passwords'
+ }
 
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
 end
