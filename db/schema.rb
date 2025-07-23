@@ -11,7 +11,8 @@
 # It's strongly recommended that you check this file into your version control system.
 
 
-ActiveRecord::Schema.define(version: 2025_07_19_123426) do
+ActiveRecord::Schema.define(version: 2025_07_19_102455) do
+cbdad42bb6a083fbb06fbaa8dd47fec35a2450cd
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -81,7 +82,6 @@ ActiveRecord::Schema.define(version: 2025_07_19_123426) do
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
 
-
   create_table "genres", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -92,22 +92,15 @@ ActiveRecord::Schema.define(version: 2025_07_19_123426) do
     t.integer "genre_id"
     t.string "name", default: "", null: false
     t.text "introduction", default: "", null: false
-
-  end
-  
- create_table "order_details", force: :cascade do |t|
-    t.integer "order_id"
-    t.integer "item_id"
     t.integer "price", null: false
     t.boolean "is_active", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-
   create_table "order_details", force: :cascade do |t|
-    t.integer "order_id", null: false
-    t.integer "item_id", null: false
+    t.integer "order_id"
+    t.integer "item_id"
     t.integer "price"
     t.integer "amount"
     t.integer "making_status"
@@ -127,14 +120,14 @@ ActiveRecord::Schema.define(version: 2025_07_19_123426) do
   create_table "orders", force: :cascade do |t|
 
     t.integer "customer_id", null: false
-    t.string "name", null: false
-    t.string "address", null: false
-    t.string "postal_code", null: false
-    t.integer "shipping_cost", null: false
-    t.integer "total_payment", null: false
-    t.integer "payment_method", default: 0, null: false
-    t.integer "status", default: 0, null: false
 
+    t.string "name"
+    t.string "address"
+    t.string "postal_code"
+    t.integer "shipping_cost"
+    t.integer "total_payment"
+    t.integer "payment_method"
+    t.integer "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -144,7 +137,6 @@ ActiveRecord::Schema.define(version: 2025_07_19_123426) do
 
   add_foreign_key "order_details", "items"
   add_foreign_key "order_details", "orders"
-
   add_foreign_key "orders", "customers"
 
 end
