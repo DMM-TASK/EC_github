@@ -43,6 +43,7 @@ Rails.application.routes.draw do
  }
 
   root to: "homes#top"
+
   resources :items, only: [:show, :index] 
   get "/about" => "homes#about"
   get "customers/my_page/:id" => "customers#show", as: 'customer'
