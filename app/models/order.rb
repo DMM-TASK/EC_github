@@ -1,7 +1,8 @@
 class Order < ApplicationRecord
 
   belongs_to :customer
-  
+  has_many :order_details
+
   belongs_to :orders
   has_many :order_details
   attr_accessor :select_address

@@ -6,9 +6,7 @@ Rails.application.routes.draw do
     resources :orders, only: [:show, :update]
     resources :order_details, only: [:update]
     resources :genres, only: [:index, :create, :edit, :update]
-
     resources :customers, only: [:index, :show, :edit, :update]   
-
   end
 
   scope module: :public do
@@ -26,7 +24,6 @@ Rails.application.routes.draw do
       delete 'destroy_all'
     end
   end
-  
     get 'cart_items', to: 'cart_items#index'
     patch 'cart_items/:id', to: 'cart_items#update'
     delete 'cart_items/:id', to: 'cart_items#destroy'
@@ -34,10 +31,20 @@ Rails.application.routes.draw do
     post 'cart_items', to: 'cart_items#create'
   end 
 
+  devise_for :customers, controllers: {
+    registrations: "public/registrations",
+    sessions: 'public/sessions'
+  }
+
+  devise_for :admins, controllers: {
+  sessions: 'admins/sessions',
+  registrations: 'admins/registrations',
+  passwords: 'admins/passwords'
+ }
+
+  root to: "homes#top"
 
   resources :items, only: [:show, :index] 
-  root  to: "homes#top"
-
   get "/about" => "homes#about"
   get "customers/my_page/:id" => "customers#show", as: 'customer'
   get "customers/information/:id/edit" => "customers#edit", as: 'edit_customer'
@@ -45,11 +52,4 @@ Rails.application.routes.draw do
   get "/customers/unsubscribe" => "customers#unsubscribe", as: 'unsubscribe_customer'
   patch "/customers/withdraw" => "customers#withdraw", as: 'withdraw_customer'
   
-  devise_for :customers
-  devise_for :admins, controllers: {
-  sessions: 'admins/sessions',
-  registrations: 'admins/registrations',
-  passwords: 'admins/passwords'
-  }
-
 end
