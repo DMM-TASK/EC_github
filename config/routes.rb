@@ -6,7 +6,9 @@ Rails.application.routes.draw do
     resources :orders, only: [:show, :update]
     resources :order_details, only: [:update]
     resources :genres, only: [:index, :create, :edit, :update]
+
     resources :customers, only: [:index, :show, :edit, :update]   
+
   end
 
   scope module: :public do
@@ -31,6 +33,7 @@ Rails.application.routes.draw do
     delete 'cart_items/destroy_all', to: 'cart_items#destroy_all'
     post 'cart_items', to: 'cart_items#create'
   end 
+
 
   resources :items, only: [:show, :index] 
   root  to: "homes#top"

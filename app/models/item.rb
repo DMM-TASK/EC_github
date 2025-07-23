@@ -5,6 +5,10 @@ class Item < ApplicationRecord
   validates :price, presence: true
   validates :is_active, inclusion: { in: [true, false] }
 
+  def status_text
+    is_active ? "販売中" : "販売停止中"
+  end
+
 
   belongs_to :genre
   has_many :cart_items
