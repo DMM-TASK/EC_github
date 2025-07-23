@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: 'homes#top'
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
-    resources :orders, only: [:index, :show, :update]
+    resources :orders, only: [:show, :update]
     resources :order_details, only: [:update]
     resources :genres, only: [:index, :create, :edit, :update]
+    resources :customers, only: [:index, :show, :edit, :update]   
   end
 
   scope module: :public do
@@ -22,6 +23,7 @@ Rails.application.routes.draw do
     collection do
       delete 'destroy_all'
     end
+  end
     get 'cart_items', to: 'cart_items#index'
     patch 'cart_items/:id', to: 'cart_items#update'
     delete 'cart_items/:id', to: 'cart_items#destroy'
@@ -48,5 +50,5 @@ Rails.application.routes.draw do
   patch "customers/my_page/:id" => "customers#update", as: 'update_customer'
   get "/customers/unsubscribe" => "customers#unsubscribe", as: 'unsubscribe_customer'
   patch "/customers/withdraw" => "customers#withdraw", as: 'withdraw_customer'
- end
+  
 end
