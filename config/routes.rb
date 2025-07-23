@@ -3,16 +3,17 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: 'homes#top'
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
-    resources :orders, only: [:index, :show, :update]
+    resources :orders, only: [:show, :update]
     resources :order_details, only: [:update]
     resources :genres, only: [:index, :create, :edit, :update]
-    resources :customers
+
+    resources :customers, only: [:index, :show, :edit, :update]   
+
   end
 
   scope module: :public do
     resources :items, only: [:index, :show]
     resources :addresses, only: [:index, :edit, :create, :update, :destroy]
-  
     resources :orders, only: [:new, :create, :index, :show] do
       collection do
         post 'confirm'  
@@ -25,7 +26,7 @@ Rails.application.routes.draw do
       delete 'destroy_all'
     end
   end
-
+  
     get 'cart_items', to: 'cart_items#index'
     patch 'cart_items/:id', to: 'cart_items#update'
     delete 'cart_items/:id', to: 'cart_items#destroy'
@@ -33,9 +34,6 @@ Rails.application.routes.draw do
     post 'cart_items', to: 'cart_items#create'
   end 
 
-  devise_for :customers
-
-  
 
   resources :items, only: [:show, :index] 
   root  to: "homes#top"
@@ -47,12 +45,11 @@ Rails.application.routes.draw do
   get "/customers/unsubscribe" => "customers#unsubscribe", as: 'unsubscribe_customer'
   patch "/customers/withdraw" => "customers#withdraw", as: 'withdraw_customer'
   
-
+  devise_for :customers
   devise_for :admins, controllers: {
   sessions: 'admins/sessions',
   registrations: 'admins/registrations',
   passwords: 'admins/passwords'
- }
-
+  }
 
 end
