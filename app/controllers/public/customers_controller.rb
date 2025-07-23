@@ -12,9 +12,9 @@ class Public::CustomersController < ApplicationController
   def update
     @customer = Customer.find(params[:id])
     if @customer.update(customer_params)
-      redirect_to customer_path(@customer),notice: "You have updated customer successfully."
+      redirect_to customer_path(@customer), notice: "You have updated customer successfully."
     else
-      rendert 'edit'
+      redirect_to edit-customer_path(@customer), alert: "エラーがあります"
     end
   end
 
@@ -26,7 +26,7 @@ class Public::CustomersController < ApplicationController
     sign_out current_customer
     redirect_to root_path, notice:"退会が完了しました"
   end
-
+  
   private
   def customer_params
     params.require(:customer).permit(:last_name,:first_name, :last_name_kana, :first_name_kana, :address, :postal_code, :telephone_number, :is_active, :email)
