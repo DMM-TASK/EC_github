@@ -10,6 +10,3 @@ class Order < ApplicationRecord
   enum status: { waiting_payment: 0, paid: 1, making: 2, preparing: 3, shipped: 4 }
 
 end
-
-
-

@@ -10,11 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2025_07_19_123426) do
-=======
+
 ActiveRecord::Schema.define(version: 2025_07_19_102455) do
->>>>>>> cbdad42bb6a083fbb06fbaa8dd47fec35a2450cd
+cbdad42bb6a083fbb06fbaa8dd47fec35a2450cd
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -101,8 +99,8 @@ ActiveRecord::Schema.define(version: 2025_07_19_102455) do
   end
 
   create_table "order_details", force: :cascade do |t|
-    t.integer "order_id", null: false
-    t.integer "item_id", null: false
+    t.integer "order_id"
+    t.integer "item_id"
     t.integer "price"
     t.integer "amount"
     t.integer "making_status"
@@ -120,7 +118,9 @@ ActiveRecord::Schema.define(version: 2025_07_19_102455) do
   end
 
   create_table "orders", force: :cascade do |t|
+
     t.integer "customer_id", null: false
+
     t.string "name"
     t.string "address"
     t.string "postal_code"
@@ -134,7 +134,9 @@ ActiveRecord::Schema.define(version: 2025_07_19_102455) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+
   add_foreign_key "order_details", "items"
   add_foreign_key "order_details", "orders"
   add_foreign_key "orders", "customers"
+
 end

@@ -1,11 +1,18 @@
 class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
+
+    if resource.is_a?(Admin)
+      admin_root_path
+    else
+      customer_path(current_customer.id)
+    end
     case resource
     when Admin
       admin_root_path
     when Customer
       customer_path(current_customer.id) 
+
     else
       root_path
     end
@@ -20,4 +27,5 @@ class ApplicationController < ActionController::Base
       root_path
     end
   end
-end
+
+
