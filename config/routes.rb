@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   namespace :admin do
-
+    root to: 'homes#top'
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
     resources :orders, only: [:index, :show, :update]
     resources :order_details, only: [:update]
@@ -9,9 +9,8 @@ Rails.application.routes.draw do
   end
 
   scope module: :public do
-    root to: 'homes#top'
-    
     resources :items, only: [:index, :show]
+    root to: 'homes#top'
     resources :addresses, only: [:index, :edit, :create, :update, :destroy]
 
     resources :orders, only: [:new, :create, :index, :show] do
