@@ -1,6 +1,6 @@
 class Public::AddressesController < ApplicationController
   def index
-    @address　= Address.new
+    @address = Address.new
     @addresses = current_customer.addresses
   end
 
@@ -23,8 +23,8 @@ class Public::AddressesController < ApplicationController
     @address = Address.find(params[:id])
     if@address.update(address_params)
       redirect_to Public_addresses_path, notice: "配送先を更新しました。"
+    end
   end
-
   def destroy
     @address = Address.find(params[:id])
     @address.destroy
@@ -36,5 +36,4 @@ class Public::AddressesController < ApplicationController
   def address_params
     params.require(:address).permit(:name, :postal_code, :address)
   end
-end
 end

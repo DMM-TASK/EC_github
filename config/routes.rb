@@ -3,10 +3,12 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: 'homes#top'
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
-    resources :orders, only: [:show, :update]
+    resources :orders, only: [:index, :show, :update]
     resources :order_details, only: [:update]
     resources :genres, only: [:index, :create, :edit, :update]
-    resources :customers, only: [:index, :show, :edit, :update]   
+    resources :customers, only: [:index, :show, :edit, :update] do
+      resources :orders, only: [:index]
+    end 
   end
 
   scope module: :public do
@@ -26,6 +28,12 @@ Rails.application.routes.draw do
       end
     end
 
+    get 'cart_items', to: 'cart_items#index'
+    patch 'cart_items/:id', to: 'cart_items#update'
+    delete 'cart_items/:id', to: 'cart_items#destroy'
+    delete 'cart_items/destroy_all', to: 'cart_items#destroy_all'
+    post 'cart_items', to: 'cart_items#create'
+  
 
     get "/about" => "homes#about"
   
@@ -37,13 +45,8 @@ Rails.application.routes.draw do
     patch "/customers/withdraw" => "customers#withdraw", as: 'withdraw_customer'
   end
 
-  end
-    get 'cart_items', to: 'cart_items#index'
-    patch 'cart_items/:id', to: 'cart_items#update'
-    delete 'cart_items/:id', to: 'cart_items#destroy'
-    delete 'cart_items/destroy_all', to: 'cart_items#destroy_all'
-    post 'cart_items', to: 'cart_items#create'
-  end 
+  
+
 
 
   devise_for :customers, controllers: {
@@ -55,19 +58,6 @@ Rails.application.routes.draw do
   sessions: 'admins/sessions',
   registrations: 'admins/registrations',
   passwords: 'admins/passwords'
- }
-
-
-
-  root to: "homes#top"
-
-  resources :items, only: [:show, :index] 
-  get "/about" => "homes#about"
-  get "customers/my_page/:id" => "customers#show", as: 'customer'
-  get "customers/information/:id/edit" => "customers#edit", as: 'edit_customer'
-  patch "customers/my_page/:id" => "customers#update", as: 'update_customer'
-  get "/customers/unsubscribe" => "customers#unsubscribe", as: 'unsubscribe_customer'
-  patch "/customers/withdraw" => "customers#withdraw", as: 'withdraw_customer'
-  
+  }
 
 end
