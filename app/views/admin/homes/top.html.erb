@@ -1,34 +1,36 @@
 <%= render 'admin/items/header' %>
 
-<div class="container my-4">
-  <div class="row justify-content-center">
-    <div class="col-11 col-lg-10">
-      <h3 class="bg-gray" style="width: 200px;">注文履歴一覧</h3>
 
-
-    <div class="order-table">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>購入日時</th>
-            <th>購入者</th>
-            <th>注文個数</th>
-            <th>注文ステータス</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @orders.each do |order| %>
-            <tr>
-              <td><%= link_to("<u>#{order.created_at.strftime("%Y-%m-%d %H:%M:%S")}</u>".html_safe, admin_order_path(order)) %></td>
-              <td><%= order.customer.last_name %><%= order.customer.first_name %></td>
-              <td><%= order.order_details.sum(:amount) %></td>
-              <td><%= order.status %></td>
-            </tr>
-            <% end %>
-            <%= paginate @orders %>
-        </tbody>
-      </table>
+<div class="container mt-5">
+  <div class="row">
+    <div  style="background-color: #e9ecef;">
+      <h3 class="mb-0">注文履歴一覧</h3>
     </div>
+  </div>
+
+  <div class="row mt-4">
+    <table class="table">
+      <thead class="table-active">
+        <tr>
+          <th>購入日時</th>
+          <th>購入者</th>
+          <th>注文個数</th>
+          <th>注文ステータス</th>
+        </tr>
+      </thead>
+  
+      <tbody>
+        <% @orders.each do |order| %>
+          <tr>
+            <td><%= link_to("<u>#{order.created_at.strftime("%Y-%m-%d %H:%M:%S")}</u>".html_safe, admin_order_path(order)) %></td>
+            <td><%= order.customer.last_name %><%= order.customer.first_name %></td>
+            <td><%= order.order_details.sum(:amount) %></td>
+            <td><%= order.status %></td>
+          </tr>
+        <% end %>
+          <%= paginate @orders %>
+      </tbody>
+    </table>
+
   </div>
 </div>

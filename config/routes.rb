@@ -3,49 +3,57 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: 'homes#top'
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
-    resources :orders, only: [:show, :update]
+    resources :orders, only: [:index, :show, :update]
     resources :order_details, only: [:update]
     resources :genres, only: [:index, :create, :edit, :update]
-
-    resources :customers, only: [:index, :show, :edit, :update]   
-
+    resources :customers, only: [:index, :show, :edit, :update] do
+      resources :orders, only: [:index]
+    end 
   end
 
   scope module: :public do
     resources :items, only: [:index, :show]
+    root to: 'homes#top'
     resources :addresses, only: [:index, :edit, :create, :update, :destroy]
     resources :orders, only: [:new, :create, :index, :show] do
       collection do
         post 'confirm'  
         get 'thanks'  
-    end
-  end 
+      end
+    end 
   
-  resources :cart_items, only: [:index, :update, :destroy, :create] do
-    collection do
-      delete 'destroy_all'
+    resources :cart_items, only: [:index, :update, :destroy, :create] do
+      collection do
+        delete 'destroy_all'
+      end
     end
-  end
-  
+
     get 'cart_items', to: 'cart_items#index'
     patch 'cart_items/:id', to: 'cart_items#update'
     delete 'cart_items/:id', to: 'cart_items#destroy'
     delete 'cart_items/destroy_all', to: 'cart_items#destroy_all'
     post 'cart_items', to: 'cart_items#create'
-  end 
-
-
-  resources :items, only: [:show, :index] 
-  root  to: "homes#top"
-
-  get "/about" => "homes#about"
-  get "customers/my_page/:id" => "customers#show", as: 'customer'
-  get "customers/information/:id/edit" => "customers#edit", as: 'edit_customer'
-  patch "customers/my_page/:id" => "customers#update", as: 'update_customer'
-  get "/customers/unsubscribe" => "customers#unsubscribe", as: 'unsubscribe_customer'
-  patch "/customers/withdraw" => "customers#withdraw", as: 'withdraw_customer'
   
-  devise_for :customers
+
+    get "/about" => "homes#about"
+  
+
+    get "customers/my_page/:id" => "customers#show", as: 'customer'
+    get "customers/information/:id/edit" => "customers#edit", as: 'edit_customer'
+    patch "customers/my_page/:id" => "customers#update", as: 'update_customer'
+    get "/customers/unsubscribe" => "customers#unsubscribe", as: 'unsubscribe_customer'
+    patch "/customers/withdraw" => "customers#withdraw", as: 'withdraw_customer'
+  end
+
+  
+
+
+
+  devise_for :customers, controllers: {
+    registrations: "public/registrations",
+    sessions: 'public/sessions'
+  }
+
   devise_for :admins, controllers: {
   sessions: 'admins/sessions',
   registrations: 'admins/registrations',

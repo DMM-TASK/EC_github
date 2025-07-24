@@ -1,13 +1,18 @@
 class ApplicationController < ActionController::Base
 
-
- 
   def after_sign_in_path_for(resource)
+
+    if resource.is_a?(Admin)
+      admin_root_path
+    else
+      customer_path(current_customer.id)
+    end
     case resource
     when Admin
       admin_root_path
     when Customer
-      customer_path(resource.id) 
+      customer_path(current_customer.id) 
+
     else
       root_path
     end
@@ -22,13 +27,5 @@ class ApplicationController < ActionController::Base
       root_path
     end
   end
-
-
-
-
-  protected
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name,:last_name,:email])
-    devise_parameter_sanitizer.permit(:sign_in, keys: [:first_name,:last_name])
-  end
 end
+
