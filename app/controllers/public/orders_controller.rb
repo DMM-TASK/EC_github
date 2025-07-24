@@ -8,6 +8,7 @@ class Public::OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id #customer_idを.idに変更
     @cart_items = current_customer.cart_items
+  
     case params[:order][:select_address]
     when "own"
       @order.postal_code = current_customer.postal_code
@@ -32,6 +33,7 @@ class Public::OrdersController < ApplicationController
   def create
   @order = Order.new(order_params)
   @order.customer_id = current_customer.id
+  @order.save!
   @order.shipping_cost = 800
   @order.status = 0
 
@@ -51,8 +53,10 @@ class Public::OrdersController < ApplicationController
   end
 
   current_customer.cart_items.destroy_all
-  redirect_to thanks_public_orders_path
-  else
+
+  redirect_to thanks_orders_path
+else
+
   render :new
   end
   end
@@ -69,6 +73,10 @@ class Public::OrdersController < ApplicationController
   private
 
   def order_params
+
     params.require(:order).permit(:payment_method, :postal_code, :address, :name, :status) # :status追加
+    permitted[:payment_method] = permitted[:payment_method].to_i if permitted[:payment_method].present?
+    permitted
+
   end
 end
