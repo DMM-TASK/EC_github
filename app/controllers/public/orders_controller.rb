@@ -6,7 +6,7 @@ class Public::OrdersController < ApplicationController
 
   def confirm
     @order = Order.new(order_params)
-    @order.customer_id = current_customer.id
+    @order.customer_id = current_customer.id #customer_idを.idに変更
     @cart_items = current_customer.cart_items
   
     case params[:order][:select_address]
@@ -26,6 +26,7 @@ class Public::OrdersController < ApplicationController
     end
   end
 
+
   def thanks
   end
 
@@ -40,8 +41,8 @@ class Public::OrdersController < ApplicationController
   @order.total_payment = cart_total + @order.shipping_cost
   @order.status = 0
 
-if @order.save
-  current_customer.cart_items.each do |cart_item|
+  if @order.save
+    current_customer.cart_items.each do |cart_item|
     OrderDetail.create(
       order_id: @order.id,
       item_id: cart_item.item_id,
@@ -52,10 +53,12 @@ if @order.save
   end
 
   current_customer.cart_items.destroy_all
+
   redirect_to thanks_orders_path
 else
+
   render :new
-end
+  end
   end
 
   def index
@@ -70,8 +73,10 @@ end
   private
 
   def order_params
-    permitted = params.require(:order).permit(:payment_method, :address_id, :name, :postal_code, :shipping_cost, :total_payment, :status)
+
+    params.require(:order).permit(:payment_method, :postal_code, :address, :name, :status) # :status追加
     permitted[:payment_method] = permitted[:payment_method].to_i if permitted[:payment_method].present?
     permitted
+
   end
 end

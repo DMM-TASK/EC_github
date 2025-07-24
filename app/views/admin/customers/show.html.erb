@@ -1,6 +1,11 @@
-<div class="container">
+<%= render 'admin/items/header' %>
+<div class="container mt-4">
     <div class="row">
-      <h3 class="mb-4"><%= @customer.last_name %><%= @customer.first_name %>さんの会員詳細</h3>
+      <div class="mb-4" style="background-color: #e9ecef;">
+        <h3 class="mb-0"><%= @customer.last_name %><%= @customer.first_name %>さんの会員詳細</h3>
+      </div>
+    </div>
+    <div class="row mt-4">
       <table class="table table-borderless">
         <tbody>
           <tr>
@@ -39,14 +44,14 @@
               <td><span class="text-secondary">退会</span></td>
             <% end %>
           </tr>
-          <th>
+            <th></th>
             <td>
-              <%= link_to "編集する", edit_admin_customer_path(@customer), class: "btn btn-success" %>
+              <%= link_to "編集する", edit_admin_customer_path(@customer), class: "btn btn-success mr-5" %>
+            
+            
+              <%= link_to "注文履歴一覧を見る", admin_root_path, class: "btn btn-primary" %>
             </td>
-            <td>
-              <%= link_to "注文履歴一覧を見る", admin_customer_orders_path(@customer), class: "btn btn-primary" %>
-            </td>
-          </th>
+          </tr>
         </tbody>
       </table>
     </div>

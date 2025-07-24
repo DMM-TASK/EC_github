@@ -1,6 +1,5 @@
 <h2 class="mb-4">注文情報入力</h2>
-
-<%= form_with model: @order, url: confirm_orders_path, method: :post, local: true do |f| %>
+<%= form_with model: @order, url: confirm_orders_path, method: :post, local: true do |f| %> 
 
   <h3 class="mb-3">支払方法</h3>
   <div class="form-group">
@@ -25,12 +24,13 @@
       <%= f.label :select_address_registered, "登録済みの配送先から選択", class: "form-check-label" %>
     </div>
     <div class="mt-2">
-      <%= collection_select(:order, :address_id, @addresses, :id, :full_address, prompt: "配送先を選択", class: "form-control") %>
+      <%= f.collection_select(:address_id, @addresses, :id, :address, prompt: "配送先を選択") %> <!--メンターさんと一緒に変更した部分です-->
     </div>
     <div class="form-check mt-3">
       <%= f.radio_button :select_address, "new", class: "form-check-input" %>
       <%= f.label :select_address_new, "新しい配送先を入力", class: "form-check-label" %>
     </div>
+
 
     <div class="form-group mt-2">
       <%= f.label :name, "宛名" %>

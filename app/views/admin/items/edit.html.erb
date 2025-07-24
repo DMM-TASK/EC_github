@@ -1,5 +1,10 @@
 <%= render 'header' %>
-<h1>商品編集</h1>
+
+
+<div class="container">
+<div class="row">
+<div class="col-lg-8 mx-auto">
+<h2 class="bg-gray mt-2 " style="width: 150px;">商品編集</h2>
 
 <%= form_with model: [:admin, @item] do |f| %>
    <h4>商品画像</h4>
@@ -20,5 +25,9 @@
 <%= f.radio_button :is_active, false, id: :is_active_false %>
 
 
-  <%= f.submit '変更を保存する' %>
+  <%= f.submit '変更を保存', class: "btn btn-success" %>
 <% end %>
+
+</div>
+</div>
+</div>
