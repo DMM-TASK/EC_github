@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col">
       <h4 class="my-5"><%= @customer.full_name %>さんの会員情報編集</h4>
+      <%= form_with model:@customer, url: update_customer_path(@customer), method: :patch, local: false do |f| %>
       <table class="table table-borderless">
-        <%= form_with model:@customer, url: update_customer_path(@customer), method: :patch, local: false do |f| %>
         <tr>
           <td>会員ID</td>
           <td><%= @customer.id %></td>
@@ -32,7 +32,7 @@
         </tr>
 
         <tr>
-          <td><%= f.label :address, "住所" %></td>
+          <td>住所</td>
           <td><%= f.text_field :address, class: "form-control" %></td>
           <td></td>
         </tr>
@@ -51,23 +51,15 @@
         
         <tr>
           <td>会員ステータス</td>
-          <td>
-            <%= f.radio_button :is_deleted, :false %>
-            <%= f.label :is_active_true, "有効" %>
-
-            <%= f.radio_button :is_deleted, :false %>
-            <%= f.label :is_active_false, "退会済" %>
-            
-            <%= link_to "退会する？",unsubscribe_customer_path, class:'btn btn-danger ms-3' %>
-          </td>
+          <td><%= link_to "退会する？",unsubscribe_customer_path, class:'btn btn-danger ms-3' %></td>
         </tr>
 
         <tr>
           <td><%= link_to "Back", customer_path(current_customer), class:'btn ms-3'%></td>
           <td><%= f.submit "変更を保存", class:"btn btn-success" %></td>
         </tr>
-        <% end %>
       </table>
+      <% end %>
     </div>
   </div>
 </div>
