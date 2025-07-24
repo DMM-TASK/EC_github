@@ -1,6 +1,6 @@
 <h2>注文情報入力</h2>
 
-<%= form_with model: @order, url: confirm_public_orders_path, method: :post, local: true do |f| %>
+<%= form_with model: @order, url: confirm_orders_path, method: :post, local: true do |f| %> <!--publicを消去-->
   <h3>支払方法</h3>
   <div>
     <%= f.radio_button :payment_method, 0 %>
@@ -17,7 +17,7 @@
     <%= f.radio_button :select_address, "registered" %>
     <%= f.label :select_address_registered, "登録済みの配送先から選択" %>
     <br>
-    <%= collection_select(:order, :address_id, @addresses, :id, :full_address, prompt: "配送先を選択") %>
+    <%= f.collection_select(:address_id, @addresses, :id, :address, prompt: "配送先を選択") %> <!--メンターさんと一緒に変更した部分です-->
 
     <%= f.radio_button :select_address, "new" %>
     <%= f.label :select_address_new, "新しい配送先を入力" %>
