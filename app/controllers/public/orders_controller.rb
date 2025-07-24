@@ -6,23 +6,24 @@ class Public::OrdersController < ApplicationController
 
   def confirm
     @order = Order.new(order_params)
-    @order.customer_id = current_customer_id
+    @order.customer_id = current_customer.id #customer_idを.idに変更
     @cart_items = current_customer.cart_items
+  
     case params[:order][:select_address]
     when "own"
       @order.postal_code = current_customer.postal_code
-    @order.address = current_customer.address
-    @order.name = current_customer.last_name + current_customer.first_name
-  when "registered"
-    address = Address.find(params[:order][:address_id])
-    @order.postal_code = address.postal_code
-    @order.address = address.address
-    @order.name = address.name
-  when "new"
-    @order.postal_code = params[:order][:postal_code]
-    @order.address = params[:order][:address]
-    @order.name = params[:order][:name]
-  end
+      @order.address = current_customer.address
+      @order.name = current_customer.last_name + current_customer.first_name
+    when "registered"
+      address = Address.find(params[:order][:address_id])
+      @order.postal_code = address.postal_code
+      @order.address = address.address
+      @order.name = address.name
+    when "new"
+      @order.postal_code = params[:order][:postal_code]
+      @order.address = params[:order][:address]
+      @order.name = params[:order][:name]
+    end
   end
 
 
@@ -32,6 +33,7 @@ class Public::OrdersController < ApplicationController
   def create
   @order = Order.new(order_params)
   @order.customer_id = current_customer.id
+  @order.save!
   @order.shipping_cost = 800
   @order.status = 0
 
@@ -39,8 +41,8 @@ class Public::OrdersController < ApplicationController
   @order.total_payment = cart_total + @order.shipping_cost
   @order.status = 0
 
-if @order.save
-  current_customer.cart_items.each do |cart_item|
+  if @order.save
+    current_customer.cart_items.each do |cart_item|
     OrderDetail.create(
       order_id: @order.id,
       item_id: cart_item.item_id,
@@ -51,10 +53,12 @@ if @order.save
   end
 
   current_customer.cart_items.destroy_all
-  redirect_to thanks_public_orders_path
+
+  redirect_to thanks_orders_path
 else
+
   render :new
-end
+  end
   end
 
   def index
@@ -68,7 +72,11 @@ end
 
   private
 
-def order_params
-  params.require(:order).permit(:payment_method, :postal_code, :address, :name)
-end
+  def order_params
+
+    params.require(:order).permit(:payment_method, :postal_code, :address, :name, :status) # :status追加
+    permitted[:payment_method] = permitted[:payment_method].to_i if permitted[:payment_method].present?
+    permitted
+
+  end
 end

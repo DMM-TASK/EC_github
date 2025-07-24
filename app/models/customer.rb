@@ -4,9 +4,11 @@ class Customer < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :orderaddress, dependent: :destroy
+
+  has_many :orderaddresses, dependent: :destroy
+  has_many :addresses, class_name: 'Orderaddress', foreign_key: 'customer_id' #外部キー追加
   has_many :cart_items, dependent: :destroy
-  has_many :order, dependent: :destroy
+  has_many :orders, dependent: :destroy
 
   def full_name
     first_name + " " + last_name

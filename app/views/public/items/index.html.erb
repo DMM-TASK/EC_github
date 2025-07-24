@@ -1,7 +1,11 @@
-<div class="container">
+<div>
+  <%= render "admin/items/header" %>
+</div>
+
+<div class="container mt-4">
+  <h1>商品一覧</h1>
   <div class="row">
-    <h1>商品一覧</h1>
-      <table>
+      <table class= "table">
         <thead>
           <tr>
             <th>ID</th>
@@ -16,11 +20,11 @@
   </div>
     <% @items.each do |item| %>
   <div calss= "row"> 
-    <table> 
+    <table class="table"> 
         <tbody>
            <tr>
              <td><%= item.id %></td>
-             <td><%= link_to item.name, item %></td>
+             <td><%= link_to item.name, item_path(item.id) %></td> <!--itemsからitemに変更-->
              <td><%= item.price %></td>
              <td><%= item.genre_id %></td>
              <td></td>
@@ -30,5 +34,5 @@
          </tbody>
     </table>
 </div>
-    <% paginate @items%>
+    <% paginate @items %>
 
