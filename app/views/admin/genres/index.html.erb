@@ -1,13 +1,19 @@
-<div class="container my-5">
-  <h3 class="p-3 mb-2 table-active">ジャンル一覧・追加</h3>
+<%= render 'admin/items/header' %>
 
-  <div class="row mt-5">
+<div class="container mt-４">
+  <div class="row">
+    <div class="mb-4" style="background-color: #e9ecef;">
+      <h3 class="mb-0">ジャンル一覧・追加</h3>
+    </div>
+  </div>
+
+  <div class="row mt-4">
     
       <%= form_with model: @genre, url: admin_genres_path, method: :post, local: true do |f| %>
-      <table class="table table-borderless w-auto">
+      <table class="table table-borderless">
         <tbody>
           <tr>
-            <td>ジャンル名</td>
+            <th>ジャンル名</th>
             <td></td>
             <td><%= f.text_field :name, placeholder: "ジャンル名" %></td>
             <td></td>
@@ -21,8 +27,8 @@
 
   <div class="row">
     <table class="table col-5">
-      <thead>
-        <tr class="table-active">
+      <thead class="table-active">
+        <tr>
           <th></th>
           <th>ジャンル</th>
           <th></th>
