@@ -1,26 +1,47 @@
 <%= render 'header' %>
-<h2>商品説明</h2>
 
-<h4>商品画像</h4>
-<% if @item.image.attached? %>
-  <%= image_tag @item.image.variant(resize_to_limit: [300, 300]) %>
-<% else %>
-  <p>画像は登録されていません</p>
-<% end %>
+<div class="container">
+  <h2>商品説明</h2>
 
-<h4>商品名</h4>
-<p><%= @item.name %></p>
+  <div class="row">
+   
+    <div class="col-lg-3">
+      
+      <% if @item.image.attached? %>
+        <%= image_tag @item.image.variant(resize_to_limit: [300, 300]) %>
+      <% else %>
+        <p>画像は登録されていません</p>
+      <% end %>
+    </div>
 
-<h4>商品説明</h4>
-<p><%= @item.introduction %></p>
+   
+    <div class="col-lg-7">
+      <div class="d-flex mb-2">
+        <h4 class="me-5 mb-0 " style="width: 150px;">商品名</h4>
+        <p class="mb-0"><%= @item.name %></p>
+      </div>
 
-<h4>ジャンル</h4>
-<p><%= @item.genre.name %></p>
+      <div class="d-flex mb-2">
+        <h4 class="me-5 mb-0" style="width: 150px;">商品説明</h4>
+        <p class="mb-0"><%= @item.introduction %></p>
+      </div>
 
-<h4>税込価格<br>(税抜価格)</h4>
-<p><%= "#{(@item.price * 1.1).to_i}（#{@item.price}）円" %></p>
+      <div class="d-flex mb-2">
+        <h4 class="me-5 mb-0" style="width: 150px;">ジャンル</h4>
+        <p class="mb-0"><%= @item.genre.name %></p>
+      </div>
 
-<h4>販売ステータス</h4>
-<p><%= @item.is_active ? "販売中" : "販売停止中" %></p>
+      <div class="d-flex mb-2">
+        <h4 class="me-5 mb-0" style="width: 150px;">税込価格<br>(税抜価格)</h4>
+        <p class="mb-0"><%= "#{(@item.price * 1.1).to_i}（#{@item.price}）円" %></p>
+      </div>
 
-<%= link_to "編集する", edit_admin_item_path(@item.id) %>
+      <div class="d-flex mb-2">
+        <h4 class="me-5 mb-0" style="width: 150px;">販売ステータス</h4>
+        <p class="mb-0"><%= @item.is_active ? "販売中" : "販売停止中" %></p>
+      </div>
+
+      <%= link_to "編集する", edit_admin_item_path(@item.id), class: "btn btn-success mt-3" %>
+    </div>
+  </div>
+</div>
