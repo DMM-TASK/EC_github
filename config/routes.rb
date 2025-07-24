@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   end
 
   scope module: :public do
+
+    root to: "homes#top"
+    resources :items, only: [:index, :show]
+
     root to: 'homes#top'
 
     resources :items, only: [:index, :show]
@@ -26,8 +30,7 @@ Rails.application.routes.draw do
         post 'confirm'
         get 'thanks'
       end
-    end
-
+    end 
     resources :cart_items, only: [:index, :update, :destroy, :create] do
       collection do
         delete 'destroy_all'
@@ -52,11 +55,10 @@ Rails.application.routes.draw do
     patch "/customers/withdraw" => "customers#withdraw", as: 'withdraw_customer'
   end
 
-
-
   devise_for :customers, controllers: {
-    registrations: "public/registrations",
-    sessions: 'public/sessions'
+    registrations: "publics/registrations",
+    sessions: 'publics/sessions',
+    passwords: 'publics/passwords'
   }
 
   devise_for :admins, controllers: {
@@ -67,4 +69,12 @@ Rails.application.routes.draw do
 
   }
 
+
+  get "/about" => "public/homes#about"
+  get "customers/my_page/:id" => "public/customers#show", as: 'customer'
+  get "customers/information/:id/edit" => "public/customers#edit", as: 'edit_customer'
+  patch "customers/my_page/:id" => "public/customers#update", as: 'update_customer'
+  get "/customers/unsubscribe" => "public/customers#unsubscribe", as: 'unsubscribe_customer'
+  patch "/customers/withdraw" => "public/customers#withdraw", as: 'withdraw_customer'
+  
 end
