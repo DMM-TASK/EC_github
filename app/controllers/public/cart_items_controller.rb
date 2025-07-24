@@ -7,7 +7,7 @@ class Public::CartItemsController < ApplicationController
   def update
     @cart_item = current_customer.cart_items.find(params[:id])
     if @cart_item.update(cart_item_params)
-      redirect_to public_cart_items_path, notice: "カート内商品の数量を更新しました。"
+      redirect_to cart_items_path, notice: "カート内商品の数量を更新しました。"  #public_cart...のpublic削除、計４箇所
     else
       @cart_items = current_customer.cart_items.includes(:items)
       flash.now[:alert] = "数量の更新に失敗しました。"
@@ -18,12 +18,12 @@ class Public::CartItemsController < ApplicationController
   def destroy
     cart_item = current_customer.cart_items.find(params[:id])
   cart_item.destroy
-  redirect_to public_cart_items_path, notice: "商品をカートから削除しました。"
+  redirect_to cart_items_path, notice: "商品をカートから削除しました。"
   end
 
   def destroy_all
   current_customer.cart_items.destroy_all
-  redirect_to public_cart_items_path, notice: "カート内の全商品を削除しました。"
+  redirect_to cart_items_path, notice: "カート内の全商品を削除しました。"
   end
 
   def create
@@ -35,7 +35,7 @@ class Public::CartItemsController < ApplicationController
       new_cart_item = current_customer.cart_items.new(cart_item_params)
       new_cart_item.save
     end
-    redirect_to public_cart_items_path,notice: "商品をカートに追加しました。"
+    redirect_to cart_items_path,notice: "商品をカートに追加しました。"
   end
 
   private
