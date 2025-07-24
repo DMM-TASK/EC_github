@@ -1,25 +1,53 @@
-<div class="container">
-  <div class="row" >
-      <div class='mx-auto col-11 col-sm-10 col-lg-8 col-xl-6'>
-         <h1>welcome to <strong>ECサイト</strong>  !!</h1>
-           <div class="btn-wrapper col-10 mx-auto">
+<div>
+  <%= render "admin/items/header" %>
+</div>
 
-            <h2>管理者用</h2>
-            <div class="row">
-              <%= link_to 'Log in',new_admin_session_path, class: "btn btn-info btn-sm btn-block mb-3 sign_in" %>
-            </div>
-            <div class="row">
-              <%= link_to 'Sign Up',new_admin_registration_path, class: "btn btn-success btn-sm btn-block sign_up" %>
-            </div>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-3 border p-3">
+      <h5 class="text-center border-bottom pb-2">ジャンル</h5>
+      <ul class="list-group text-center">
+        <% @genres.each do |genre| %>
+          <li class="list-group-item">
+            <%= link_to genre.name, items_path(genre_id: genre.id) %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
 
-            <h2>会員用</h2>
-            <div class="row">
-              <%= link_to 'Log in',new_customer_session_path, class: "btn btn-info btn-sm btn-block mb-3 sign_in" %>
-            </div>
-            <div class="row">
-              <%= link_to 'Sign Up',new_customer_registration_path, class: "btn btn-success btn-sm btn-block sign_up" %>
+    <div class="col-md-9 d-flex flex-colum align-items-center">
+      <div class="col-md-7">
+        <div class="p-4 bg-light rounded shadow-sm mx-auto my-4" style="max-width: 1000px;">
+          <p class="fs-5">
+            ようこそ長野CAKEへ!<br>
+            このサイトは、ケーキ販売のECサイトになります。<br>
+            会員ではない方も商品の閲覧はできますが、<br>
+            購入には会員登録が必要になります。
+          </p>
+        </div>
+      
+      <h4 class="mb-4">新着商品</h4>
+       <div class="row">
+         <% @items.each do |item| %>
+          <div class="col-md-3 mb-4">
+            <div class="card h-100">
+              <% if item.image.attached? %>
+                <%= image_tag item.image.variant(resize_to_limit: [200, 200]), class: "card-img-top" %>
+              <% end %>
+                <div class="card-body d-flex flex-column justify-content-between">
+                  <div>
+                    <h5 class="card-title"><%= item.name %></h5>
+                    <p class="card-text"><%=(item.price) %></p>
+                  </div>
+                    <%= link_to "詳細", item_path(item.id), class: "btn btn-outline-primary btn-sm mt-2" %>
+                </div>
             </div>
            </div>
-      </div>
+           <% end %>
+       </div>
+     </div>
+   </div>
   </div>
-</div>
+ </div>
+
+    

@@ -32,7 +32,7 @@
         </tr>
 
         <tr>
-          <td><%= f.label :address, "住所" %></td>
+          <td>住所</td>
           <td><%= f.text_field :address, class: "form-control" %></td>
           <td></td>
         </tr>
@@ -51,15 +51,7 @@
         
         <tr>
           <td>会員ステータス</td>
-          <td>
-            <%= f.radio_button :is_deleted, :false %>
-            <%= f.label :is_active_true, "有効" %>
-
-            <%= f.radio_button :is_deleted, :false %>
-            <%= f.label :is_active_false, "退会済" %>
-            
-            <%= link_to "退会する？",unsubscribe_customer_path, class:'btn btn-danger ms-3' %>
-          </td>
+          <td><%= link_to "退会する？",unsubscribe_customer_path, class:'btn btn-danger ms-3' %></td>
         </tr>
 
         <tr>
