@@ -13,10 +13,12 @@ Rails.application.routes.draw do
 
   scope module: :public do
 
+
     root to: 'homes#top'
     
 
     resources :items, only: [:index, :show]
+
     resources :addresses, only: [:index, :edit, :create, :update, :destroy]
     resources :orders, only: [:new, :create, :index, :show] do
       collection do
@@ -47,11 +49,13 @@ Rails.application.routes.draw do
   
 
     get "/about" => "homes#about"
+
     get "customers/my_page/:id" => "customers#show", as: 'customer'
     get "customers/information/:id/edit" => "customers#edit", as: 'edit_customer'
     patch "customers/my_page/:id" => "customers#update", as: 'update_customer'
     get "/customers/unsubscribe" => "customers#unsubscribe", as: 'unsubscribe_customer'
     patch "/customers/withdraw" => "customers#withdraw", as: 'withdraw_customer'
+
   end
   
 
