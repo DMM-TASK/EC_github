@@ -1,3 +1,7 @@
+<div>
+  <%= render "admin/items/header" %>
+</div>
+
 <div class="container">
   <div class="row">
     <div class="col">
@@ -12,40 +16,40 @@
         <tr>
           <td>氏名</td>
           <td>
-            <%= f.text_field :first_name, class: "form-control d-inline w-25" %> 
-            <%= f.text_field :last_name, class: "form-control d-inline w-25 ms-2" %>
+            <%= f.text_field :first_name, class: "form-control d-inline w-25",placeholder: "姓" %> 
+            <%= f.text_field :last_name, class: "form-control d-inline w-25 ms-2", placeholder: "名" %>
           </td>
         </tr>
 
         <tr>
           <td>フリガナ</td>
           <td>
-            <%= f.text_field :first_name_kana, class: "form-control d-inline w-25" %> 
-            <%= f.text_field :last_name_kana, class: "form-control d-inline w-25 ms-2" %>
+            <%= f.text_field :first_name_kana, class: "form-control d-inline w-25", placeholder: "姓(カナ)" %> 
+            <%= f.text_field :last_name_kana, class: "form-control d-inline w-25 ms-2", placeholder: "名(カナ)" %>
           </td>
         </tr>
 
         <tr>
           <td>郵便番号</td>
-          <td><%= f.text_field :postal_code, class: "form-control" %></td>
+          <td><%= f.text_field :postal_code, class: "form-control",inputmode: "numeric", pattern: "[0-9]*", placeholder: "09012345678（半角数字）" %></td>
           <td></td>
         </tr>
 
         <tr>
           <td>住所</td>
-          <td><%= f.text_field :address, class: "form-control" %></td>
+          <td><%= f.text_field :address, class: "form-control", placeholder: "例：埼玉県さいたま市〜" %></td>
           <td></td>
         </tr>
 
         <tr>
           <td>電話番号</td>
-          <td><%= f.text_field :telephone_number, class: "form-control" %></td>
+          <td><%= f.text_field :telephone_number, class: "form-control", inputmode: "numeric", pattern: "[0-9]*", placeholder: "09012345678（半角数字）" %></td>
           <td></td>
         </tr>
 
         <tr>
           <td>メールアドレス</td>
-          <td><%= f.text_field :email, class: "form-control" %></td>
+          <td><%= f.text_field :email, class: "form-control", placeholder: "example@example.com" %></td>
           <td></td>
         </tr>
         
