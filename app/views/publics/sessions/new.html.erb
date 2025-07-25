@@ -1,31 +1,50 @@
+<div>
+  <%= render 'admin/items/header' %>
+</div>
 
-<div class='container'>
-  <div class='row'>
-    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0">
-      <h1>会員用</h1>
-      <h2>Log in</h2>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-md-8 col-lg-6">
+      <h2 class="mb-4 text-center">ログイン（会員用）</h2>
+
       <%= form_with model: @customer, url: customer_session_path, local: true do |f| %>
-      
-        <div class="field">
-          <%= f.label :email, for:'customer_email'%>
-          <%= f.email_field :email, autofocus: true, class: "email", id:'customer_email' %>
-        </div>
-        <div class="field">
-          <%= f.label :password, for:'customer_password'%>
-          <%= f.password_field :password, autocomplete: "off", class: "password", id:'customer_password' %>
-        </div>
-        <% if devise_mapping.rememberable? -%>
-          <div class="field">
-            <%= f.check_box :remember_me %>
-            <%= f.label :remember_me %>
+        
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label" for="customer_email">メールアドレス</label>
+          <div class="col-sm-9">
+            <%= f.email_field :email, autofocus: true, class: "form-control", id: "customer_email" %>
           </div>
-        <% end -%>
-        <div class="actions">
-          <%= f.submit "Log in" ,class: 'btn btn-sm btn-primary'%>
         </div>
+
+        <div class="mb-3 row">
+          <label class="col-sm-3 col-form-label" for="customer_password">パスワード</label>
+          <div class="col-sm-9">
+            <%= f.password_field :password, autocomplete: "off", class: "form-control", id: "customer_password" %>
+          </div>
+        </div>
+
+        <% if devise_mapping.rememberable? %>
+          <div class="mb-3 row align-items-center">
+            <div class="offset-sm-3 col-sm-9">
+              <div class="form-check">
+                <%= f.check_box :remember_me, class: "form-check-input", id: "remember_me" %>
+                <%= f.label :remember_me, class: "form-check-label", for: "remember_me" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="text-center mt-4">
+          <%= f.submit "ログイン", class: "btn btn-primary px-5" %>
+        </div>
+
       <% end %>
-      <%= render "publics/shared/links" %>
+
+      <div class="text-center mt-4">
+        <p>未登録の方は
+          <%= link_to "こちらから新規登録", new_customer_registration_path, class: "text-decoration-underline" %>
+        </p>
+      </div>
     </div>
   </div>
 </div>
-
