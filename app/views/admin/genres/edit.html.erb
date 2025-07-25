@@ -1,0 +1,25 @@
+<%= render 'admin/items/header' %>
+
+<div class="container mt-5">
+  <div class="row">
+    <div style="background-color: #e9ecef;">
+      <h3 class="mb-0">ジャンル編集</h3>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <%= form_with model: @genre, url: admin_genre_path(@genre), method: :patch, local: true do |f| %>
+      <table class="table table-borderless w-auto">
+        <tbody>
+          <tr>
+            <td>ジャンル名</td>
+            <td></td>
+            <td><%= f.text_field :name %></td>
+            <td></td>
+            <td><%= f.submit "変更を保存",class:"btn btn-success" %></td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>
