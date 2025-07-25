@@ -13,7 +13,8 @@
       <tbody>
         <tr>
           <th>購入者</th>
-          <td><%= @order.customer.last_name %><%= @order.customer.first_name %></td>
+          <td><%= link_to("<u>#{@order.customer.last_name} #{@order.customer.first_name}</u>".html_safe, admin_customer_path(@order.customer)) %>
+          </td>
         </tr>
   
         <tr>
