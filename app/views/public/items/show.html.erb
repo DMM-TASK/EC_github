@@ -1,30 +1,52 @@
-<div><%= render "admin/items/header" %></div>
+<div>
+  <%= render "admin/items/header" %>
+</div>
 
-<h2>商品説明</h2>
+<div class="col-md-10 mx-auto my-5">
+  <div class="row">
 
-<h2>商品名</h2>
-<p><%= @item.name %></p>
-
-<h2>商品説明</h2>
-<p><%= @item.introduction %></p>
-
-<h2>ジャンル</h2>
-<p><%= @item.genre.name %></p>
-
-<h2>税込価格<br>(税抜価格)</h2>
-<p><%= "#{(@item.price * 1.1).to_i}（#{@item.price}）円" %></p>
-<p><%= (@item.price * 1.1).floor %>円（<%= @item.price %>円）</p>
-<p><%= (@item.price * 1.1).floor %>円（<%= @item.price %>円）</p>
-
-<h2>販売ステータス</h2>
-<p><%= @item.is_active ? "販売中" : "販売停止中" %></p>
-
-<%= form_with url: cart_items_path, method: :post, local: false, scope: :cart_item do |f| %>
-    <div>
-        <%= f.hidden_field :item_id, value: @item.id %><!--form_withの変更、f.追加、_tagを削除、value追加-->
-        <%= f.label :amount, "数量" %>
-        <%= f.number_field :amount, value: 1, min: 1 %>
+    <div class="col-md-5 mb-4 text-center">
+      <% if @item.image.attached? %>
+        <%= image_tag @item.image.variant(resize_to_limit: [300, 300]), class: "img-fluid rounded" %>
+      <% else %>
+        <p class="text-muted">画像は登録されていません</p>
+      <% end %>
     </div>
-    <%= f.submit "カートに入れる" %>
-<% end %>
 
+    <div class="col-md-7">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h3 class="card-title mb-3 fw-bold"><%= @item.name %></h3>
+
+          <h5 class="mb-2 text-muted">商品説明</h5>
+          <p><%= @item.introduction %></p>
+
+          <hr>
+
+          <h6 class="mb-1">ジャンル</h6>
+          <p class="mb-3"><%= @item.genre.name %></p>
+
+          <h6 class="mb-1">税込価格（税抜価格）</h6>
+          <p class="mb-3 text-danger fw-semibold">
+            <%= number_with_delimiter((@item.price * 1.1).floor) %>円
+            （<%= number_with_delimiter(@item.price) %>円）
+          </p>
+
+          <h6 class="mb-1">販売ステータス</h6>
+          <p class="mb-3">
+            <%= @item.is_active ? "販売中" : "販売停止中" %>
+          </p>
+
+          <%= form_with url: cart_items_path, method: :post, local: true, scope: :cart_item do |f| %>
+            <%= f.hidden_field :item_id, value: @item.id %>
+            <div class="mb-3 d-flex align-items-center">
+              <%= f.label :amount, "数量", class: "me-2" %>
+              <%= f.number_field :amount, value: 1, min: 1, class: "form-control w-25" %>
+            </div>
+            <%= f.submit "カートに入れる", class: "btn btn-primary w-100" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

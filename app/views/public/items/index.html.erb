@@ -2,37 +2,34 @@
   <%= render "admin/items/header" %>
 </div>
 
-<div class="container mt-4">
-  <h1>商品一覧</h1>
-  <div class="row">
-      <table class= "table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>商品名</th>
-            <th>販売価格</th>
-            <th>ジャンル</th>
-            <th></th>
-            <th>ステータス</th>
-          </tr>
-         </thead>
-      </table>
-  </div>
-    <% @items.each do |item| %>
-  <div calss= "row"> 
-    <table class="table"> 
-        <tbody>
-           <tr>
-             <td><%= item.id %></td>
-             <td><%= link_to item.name, item_path(item.id) %></td> <!--itemsからitemに変更-->
-             <td><%= item.price %></td>
-             <td><%= item.genre_id %></td>
-             <td></td>
-             <td><%= item.is_active %></td>
-           </tr>
-           <% end %>
-         </tbody>
-    </table>
-</div>
-    <% paginate @items %>
+<div class="container mt-5 pt-4">
 
+  <div class="row mt-4">
+    <div class="col-md-9">
+      <h2 class="mb-4">商品一覧</h2>
+      <div class="row">
+        <% @items.each do |item| %>
+          <div class="col-md-3 mb-4">
+            <div class="card h-100">
+              <% if item.image.attached? %>
+                <%= image_tag item.image.variant(resize_to_limit: [100, 100]) %>
+              <% else %>
+                画像は登録されていません
+              <% end %>
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= link_to item.name, item_path(item.id), class: "text-decoration-none text-dark" %>
+                </h5>
+                <p class="card-text">¥<%= number_with_delimiter(item.price) %></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="pagination justify-content-center">
+        <%= paginate @items %>
+      </div>
+    </div>
+  </div>
+</div>
