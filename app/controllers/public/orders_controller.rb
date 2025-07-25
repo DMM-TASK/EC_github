@@ -6,7 +6,7 @@ class Public::OrdersController < ApplicationController
 
   def confirm
     @order = Order.new(order_params)
-    @order.customer_id = current_customer.id #customer_idを.idに変更
+    @order.customer_id = current_customer.id
     @cart_items = current_customer.cart_items
   
     case params[:order][:select_address]
@@ -14,17 +14,25 @@ class Public::OrdersController < ApplicationController
       @order.postal_code = current_customer.postal_code
       @order.address = current_customer.address
       @order.name = current_customer.last_name + current_customer.first_name
+  
     when "registered"
-      address = Address.find(params[:order][:address_id])
-      @order.postal_code = address.postal_code
-      @order.address = address.address
-      @order.name = address.name
+      begin
+        address = current_customer.addresses.find(params[:order][:address_id])
+        @order.postal_code = address.postal_code
+        @order.address = address.address
+        @order.name = address.name
+      rescue ActiveRecord::RecordNotFound
+        flash[:alert] = "選択した配送先が見つかりません。"
+        redirect_to new_order_path and return
+      end
+  
     when "new"
       @order.postal_code = params[:order][:postal_code]
       @order.address = params[:order][:address]
       @order.name = params[:order][:name]
     end
   end
+  
 
 
   def thanks
@@ -73,10 +81,8 @@ else
   private
 
   def order_params
-
-    params.require(:order).permit(:payment_method, :postal_code, :address, :name, :status) # :status追加
-    permitted[:payment_method] = permitted[:payment_method].to_i if permitted[:payment_method].present?
-    permitted
-
+      permitted = params.require(:order).permit(:payment_method, :postal_code, :address, :name, :status) # :status追加
+      permitted[:payment_method] = permitted[:payment_method].to_i if permitted[:payment_method].present?
+      permitted
   end
 end

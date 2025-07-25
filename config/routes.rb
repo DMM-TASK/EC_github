@@ -17,8 +17,6 @@ Rails.application.routes.draw do
     root to: "homes#top"
     resources :items, only: [:index, :show]
 
-    root to: 'homes#top'
-
     resources :items, only: [:index, :show]
 
     get "/about" => "homes#about"
@@ -45,9 +43,8 @@ Rails.application.routes.draw do
     post 'cart_items', to: 'cart_items#create'
   
 
-    get "/about" => "homes#about"
   
-
+    get "/about" => "public/homes#about"
     get "customers/my_page/:id" => "customers#show", as: 'customer'
     get "customers/information/:id/edit" => "customers#edit", as: 'edit_customer'
     patch "customers/my_page/:id" => "customers#update", as: 'update_customer'
@@ -70,11 +67,4 @@ Rails.application.routes.draw do
   }
 
 
-  get "/about" => "public/homes#about"
-  get "customers/my_page/:id" => "public/customers#show", as: 'customer'
-  get "customers/information/:id/edit" => "public/customers#edit", as: 'edit_customer'
-  patch "customers/my_page/:id" => "public/customers#update", as: 'update_customer'
-  get "/customers/unsubscribe" => "public/customers#unsubscribe", as: 'unsubscribe_customer'
-  patch "/customers/withdraw" => "public/customers#withdraw", as: 'withdraw_customer'
-  
 end
