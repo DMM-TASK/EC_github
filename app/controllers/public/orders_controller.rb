@@ -63,7 +63,7 @@ class Public::OrdersController < ApplicationController
   current_customer.cart_items.destroy_all
 
   redirect_to thanks_orders_path
-else
+  else
 
   render :new
   end

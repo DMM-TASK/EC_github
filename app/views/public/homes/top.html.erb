@@ -2,52 +2,49 @@
   <%= render "admin/items/header" %>
 </div>
 
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-md-3 border p-3">
-      <h5 class="text-center border-bottom pb-2">ジャンル</h5>
-      <ul class="list-group text-center">
-        <% @genres.each do |genre| %>
-          <li class="list-group-item">
-            <%= link_to genre.name, items_path(genre_id: genre.id) %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
+<div>
+  <%= flash[:notice] %>
+</div>
 
-    <div class="col-md-9 d-flex flex-colum align-items-center">
-      <div class="col-md-7">
-        <div class="p-4 bg-light rounded shadow-sm mx-auto my-4" style="max-width: 1000px;">
-          <p class="fs-5">
-            ようこそ長野CAKEへ!<br>
-            このサイトは、ケーキ販売のECサイトになります。<br>
-            会員ではない方も商品の閲覧はできますが、<br>
-            購入には会員登録が必要になります。
-          </p>
-        </div>
-      
-      <h4 class="mb-4">新着商品</h4>
-       <div class="row">
-         <% @items.each do |item| %>
-          <div class="col-md-3 mb-4">
-            <div class="card h-100">
-              <% if item.image.attached? %>
-                <%= image_tag item.image.variant(resize_to_limit: [200, 200]), class: "card-img-top" %>
-              <% end %>
-                <div class="card-body d-flex flex-column justify-content-between">
-                  <div>
-                    <h5 class="card-title"><%= item.name %></h5>
-                    <p class="card-text"><%=(item.price) %></p>
-                  </div>
-                    <%= link_to "詳細", item_path(item.id), class: "btn btn-outline-primary btn-sm mt-2" %>
-                </div>
+<div class="container mt-5 text-center">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+
+      <div class="p-4 bg-white border rounded-4 shadow-sm mx-auto my-4" style="max-width: 900px;">
+        <p class="fs-5 mb-0">
+          ようこそ <span class="fw-bold text-danger">長野CAKE</span> へ！<br>
+          当サイトは、全国配送可能なケーキ販売ECサイトです。<br>
+          閲覧はどなたでも可能ですが、ご購入には会員登録が必要です。
+        </p>
+      </div>
+
+      <h3 class="mb-4 text-start fw-bold text-secondary border-start border-4 border-danger ps-3">新着商品</h3>
+
+      <div class="d-flex overflow-auto gap-4 justify-content-start mb-4 px-2 pb-2">
+        <% @items.each do |item| %>
+          <div class="card shadow-sm rounded-4 border-0" style="min-width: 220px; max-width: 220px;">
+            <% if item.image.attached? %>
+              <%= image_tag item.image.variant(resize_to_limit: [200, 200]),
+                    class: "card-img-top rounded-top p-3" %>
+            <% else %>
+              <div class="text-muted py-5">画像なし</div>
+            <% end %>
+
+            <div class="card-body">
+              <h5 class="card-title fw-bold text-dark"><%= item.name %></h5>
+              <p class="card-text text-muted mb-2">¥<%= number_with_delimiter(item.price) %></p>
+              <%= link_to "詳細を見る", item_path(item.id),
+                  class: "btn btn-outline-danger btn-sm w-100 shadow-sm" %>
             </div>
-           </div>
-           <% end %>
-       </div>
-     </div>
-   </div>
-  </div>
- </div>
+          </div>
+        <% end %>
+      </div>
 
+      <div class="text-end me-2">
+        <%= link_to "▶ 全ての商品を見る", items_path, class: "btn btn-link text-decoration-none text-danger fw-bold" %>
+      </div>
+
+    </div>
+  </div>
+</div>
     
