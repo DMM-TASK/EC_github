@@ -5,11 +5,11 @@ class Public::AddressesController < ApplicationController
   end
 
   def edit
-    @address = Address.find(params[:id])
+    @address = Orderaddress.find(params[:id])
   end
 
   def create
-    @address = Address.new(address_params)
+    @address = Orderaddress.new(address_params)
     @address.customer_id = current_customer.id
     if @address.save
       redirect_to addresses_path, notice: "配送先を登録しました。"
@@ -20,7 +20,7 @@ class Public::AddressesController < ApplicationController
   end
 
   def update
-    @address = Address.find(params[:id])
+    @address = Orderaddress.find(params[:id])
     if@address.update(address_params)
 
       redirect_to addresses_path, notice: "配送先を更新しました。"
@@ -28,7 +28,7 @@ class Public::AddressesController < ApplicationController
   end
 
   def destroy
-    @address = Address.find(params[:id])
+    @address = Orderaddress.find(params[:id])
     @address.destroy
     redirect_to addresses_path, notice: "配送先を削除しました。"
   end

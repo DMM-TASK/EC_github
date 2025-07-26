@@ -33,14 +33,14 @@ class Public::OrdersController < ApplicationController
   def create
   @order = Order.new(order_params)
   @order.customer_id = current_customer.id
-  @order.save!
+  
   @order.shipping_cost = 800
   @order.status = 0
 
   cart_total = current_customer.cart_items.sum { |ci| ci.item.price * ci.amount }
   @order.total_payment = cart_total + @order.shipping_cost
   @order.status = 0
-
+  @order.save
   if @order.save
     current_customer.cart_items.each do |cart_item|
     OrderDetail.create(
