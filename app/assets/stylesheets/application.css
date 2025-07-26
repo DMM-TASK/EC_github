@@ -55,20 +55,12 @@
   padding: 0 10px;
 }
 
-.detail {
-  display: table;
-  width: 100%;
-}
-.detail div {
-  display: table-row;
-}
-.detail dt, .profile dd {
-  display: table-cell;
-  padding: 8px;
-  border: 1px solid #ccc;
-}
 .detail dt {
   font-weight: bold;
-  background-color: #f8f8f8;
-  width: 30%;
+  margin-top: 10px;
+}
+
+.detail dd {
+  margin-left: 20px;
+  margin-bottom: 10px;
 }

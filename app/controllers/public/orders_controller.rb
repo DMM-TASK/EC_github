@@ -33,7 +33,7 @@ class Public::OrdersController < ApplicationController
   def create
   @order = Order.new(order_params)
   @order.customer_id = current_customer.id
-  @order.save!
+
   @order.shipping_cost = 800
   @order.status = 0
 
