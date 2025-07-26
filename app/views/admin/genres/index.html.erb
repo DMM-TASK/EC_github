@@ -1,5 +1,11 @@
 <%= render 'admin/items/header' %>
 
+<% if flash[:notice] %>
+<div class="alert alert-success text-center flash-message">
+  <%= flash[:notice] %>
+</div>
+<% end %>
+
 <div class="container mt-4">
   <div class="row">
     <div class="mb-4" style="background-color: #e9ecef;">

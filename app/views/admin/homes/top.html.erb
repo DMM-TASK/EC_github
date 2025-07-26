@@ -28,9 +28,10 @@
             <td><%= t("activerecord.attributes.order.status.#{order.status}") %></td>
           </tr>
         <% end %>
-          <%= paginate @orders %>
       </tbody>
     </table>
-
   </div>
+</div>
+<div class="d-flex justify-content-center">
+  <%= paginate @orders %>
 </div>
