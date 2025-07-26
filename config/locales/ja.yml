@@ -1,17 +1,19 @@
-ja: #enumを日本語で実装するため
-  activerecord:
-    attributes:
-      order:
-        status:
-          waiting_payment: "入金待ち"
-          paid: "入金確認"
-          making: "製作中"
-          preparing: "発送準備中"
-          shipped: "発送済み"
+ja: # 日本語の設定を行う
+  enums: # enum_help のための設定
+    order: # モデル名
+      status:
+        waiting_payment: "入金待ち"
+        paid: "入金確認"
+        making: "製作中"
+        preparing: "発送準備中"
+        shipped: "発送済み"
+      payment_method:
+        credit_card: "クレジットカード"
+        bank_transfer: "銀行振込"
 
-      order_detail:
-        making_status:
-          not_make: "製作不可"
-          wait_make: "製作待ち"
-          now_make: "製作中"
-          complete_make: "製作完了"
+    order_detail: # モデル名
+      making_status:
+        not_make: "製作不可"
+        wait_make: "製作待ち"
+        now_make: "製作中"
+        complete_make: "製作完了"
