@@ -13,12 +13,8 @@ Rails.application.routes.draw do
   end
 
   scope module: :public do
-
-    root to: "homes#top"
+    root to: 'homes#top'
     resources :items, only: [:index, :show]
-
-    get "/about" => "homes#about"
-
     resources :addresses, only: [:index, :edit, :create, :update, :destroy]
 
     resources :orders, only: [:new, :create, :index, :show] do
@@ -27,24 +23,23 @@ Rails.application.routes.draw do
         get 'thanks'
       end
     end 
+
+  end
+  
+  namespace :public do
     resources :cart_items, only: [:index, :update, :destroy, :create] do
       collection do
         delete 'destroy_all'
       end
     end
-
-
-    get 'cart_items', to: 'cart_items#index'
-    patch 'cart_items/:id', to: 'cart_items#update'
-    delete 'cart_items/:id', to: 'cart_items#destroy'
-    delete 'cart_items/destroy_all', to: 'cart_items#destroy_all'
-    post 'cart_items', to: 'cart_items#create'
-  
-
-    get "/about" => "homes#about"
-  
-
   end
+
+
+  get 'cart_items', to: 'public/cart_items#index'
+  patch 'cart_items/:id', to: 'public/cart_items#update'
+  delete 'cart_items/:id', to: 'public/cart_items#destroy'
+  delete 'cart_items/destroy_all', to: 'public/cart_items#destroy_all'
+  post 'cart_items', to: 'public/cart_items#create'
 
   devise_for :customers, controllers: {
     registrations: "publics/registrations",
