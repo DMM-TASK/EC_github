@@ -74,7 +74,7 @@ class Public::OrdersController < ApplicationController
 
   def order_params
 
-    params.require(:order).permit(:payment_method, :postal_code, :address, :name, :status) # :status追加
+    permitted = params.require(:order).permit(:payment_method, :postal_code, :address, :name, :status) # :status追加
     permitted[:payment_method] = permitted[:payment_method].to_i if permitted[:payment_method].present?
     permitted
 
