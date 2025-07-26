@@ -14,7 +14,7 @@ class Admin::OrdersController < ApplicationController
       if @order.status == "paid"
         @order.order_details.update_all(making_status: "wait_make")
       end
-      redirect_to admin_order_path(@order)
+      redirect_to admin_order_path(@order), notice: "✅ 注文ステータスを更新しました"
     else
       render 'show'
     end

@@ -11,9 +11,9 @@ class Admin::OrderDetailsController < ApplicationController
       if @order_detail.order.order_details.all? { |detail| detail.making_status == "complete_make" }
         @order_detail.order.update(status: "preparing") unless @order_detail.order.status == "preparing"
       end
-      redirect_back fallback_location: admin_order_path(@order_detail.order), notice: "製作ステータスを更新しました"
+      redirect_to admin_order_path(@order_detail.order), notice: "✅ 注文ステータスを更新しました"
     else
-      redirect_back fallback_location: admin_order_path(@order_detail.order), alert: "更新に失敗しました"
+      render 'show'
     end
   end
 

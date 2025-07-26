@@ -16,3 +16,12 @@ import "../stylesheets/application";
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+document.addEventListener("DOMContentLoaded", function () {
+  const flash = document.querySelector(".flash-message");
+  if (flash) {
+    setTimeout(() => {
+    flash.style.display = "none";
+    }, 3000); // 3秒で非表示
+  }  
+});
