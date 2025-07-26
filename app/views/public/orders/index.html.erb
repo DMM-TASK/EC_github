@@ -1,32 +1,35 @@
-<table>
-  <thead>
-    <tr>
-      <th>注文日</th>
-      <th>配送先</th>
-      <th>注文商品</th> 
-      <th>合計金額</th>
-      <th>ステータス</th>
-      <th>注文詳細</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @orders.each do |order| %>
+<div class="container mt-3">
+  <h2>注文履歴</h2>
+  <table class="table">
+    <thead>
       <tr>
-        <td><%= order.created_at.strftime("%Y年%m月%d日") %></td>
-        <td><%= order.postal_code %> <%= order.address %> <%= order.name %></td>
-
-        <td>
-          <% product_names = order.order_details.limit(2).map { |d| d.item.name } %>
-          <%= product_names.join(', ') %>
-          <% if order.order_details.count > 2 %>
-            他<%= order.order_details.count - 2 %>件
-          <% end %>
-        </td>
-
-        <td><%= order.total_payment %>円</td>
-        <td><%= order.status_i18n %></td>
-        <td><%= link_to "表示する", public_order_path(order) %></td>
+        <th>注文日</th>
+        <th>配送先</th>
+        <th>注文商品</th>
+        <th>合計金額</th>
+        <th>ステータス</th>
+        <th>注文詳細</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <td><%= order.created_at.strftime("%Y年%m月%d日") %></td>
+          <td><%= order.postal_code %> <%= order.address %> <%= order.name %></td>
+  
+          <td>
+            <% product_names = order.order_details.limit(2).map { |d| d.item.name } %>
+            <%= product_names.join(', ') %>
+            <% if order.order_details.count > 2 %>
+              他<%= order.order_details.count - 2 %>件
+            <% end %>
+          </td>
+  
+          <td><%= order.total_payment %>円</td>
+          <td><%= t("activerecord.attributes.order.status.#{order.status}") %></td>
+          <td><%= link_to "表示する", order_path(order) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

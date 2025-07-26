@@ -1,58 +1,64 @@
-<h2 class="mb-4">ショッピングカート</h2>
+<div>
+  <%= render "admin/items/header" %>
+</div>
 
-<% if @cart_items.any? %>
-  <table class="table table-bordered table-striped">
-    <thead class="thead-light">
-      <tr>
-        <th>商品名</th>
-        <th>単価（税込）</th>
-        <th>数量</th>
-        <th>小計</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @cart_items.each do |cart_item| %>
+<div class="container mt-4">
+  <h2 class="mb-4">ショッピングカート</h2>
+  
+  <% if @cart_items.any? %>
+    <table class="table table-bordered table-striped">
+      <thead class="thead-light">
         <tr>
-          <td><%= cart_item.item.name %></td>
-          <td><%= number_to_currency((cart_item.item.price * 1.1).floor, unit: "¥") %></td>
-          <td>
-
-            <%= form_with model: cart_item, local: true, method: :patch do |f| %> <!--[:public, cart_item]変更-->
-              <div class="input-group">
-                <%= f.number_field :amount, value: cart_item.amount, min: 1, class: "form-control mr-2", style: "width: 80px;" %>
-                <%= f.submit "変更", class: "btn btn-sm btn-outline-primary" %>
-              </div>
-
-            <% end %>
-          </td>
-          <td><%= number_to_currency((cart_item.item.price * 1.1).floor * cart_item.amount, unit: "¥") %></td>
-          <td>
-
-            <%= link_to "削除", cart_item_path(cart_item), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-outline-danger" %>
-          </td>
+          <th>商品名</th>
+          <th>単価（税込）</th>
+          <th>数量</th>
+          <th>小計</th>
+          <th></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  <% total_price = @cart_items.sum { |ci| (ci.item.price * 1.1).floor * ci.amount } %>
-
-
-  <div class="text-right mb-4">
-    <h5>合計金額: <%= number_to_currency(total_price, unit: "¥") %></h5>
-  </div>
-
-  <div class="d-flex justify-content-between">
-    <%= link_to "買い物を続ける", items_path, class: "btn btn-secondary" %> <!--public削除-->
-    <div>
-      <%= link_to "カートを空にする", destroy_all_cart_items_path, method: :delete, data: { confirm: "全て削除しますか？" }, class: "btn btn-danger mr-2" %><!--public削除-->
-      <%= link_to "情報入力に進む", new_order_path, class: "btn btn-primary" %><!--public削除-->
+      </thead>
+      <tbody>
+        <% @cart_items.each do |cart_item| %>
+          <tr>
+            <td><%= cart_item.item.name %></td>
+            <td><%= number_to_currency((cart_item.item.price * 1.1).floor, unit: "¥", precision: 0) %></td>
+            <td>
+  
+              <%= form_with model:[ :public, cart_item ], local: true, method: :patch do |f| %> <!--[:public, cart_item]変更-->
+                <div class="input-group">
+                  <%= f.number_field :amount, value: cart_item.amount, min: 1, class: "form-control mr-2", style: "width: 80px;" %>
+                  <%= f.submit "変更", class: "btn btn-sm btn-outline-primary" %>
+                </div>
+  
+              <% end %>
+            </td>
+            <td><%= number_to_currency((cart_item.item.price * 1.1).floor * cart_item.amount, unit: "¥", precision: 0) %></td>
+            <td>
+  
+              <%= link_to "削除", public_cart_item_path(cart_item), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-outline-danger" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  
+    <% total_price = @cart_items.sum { |ci| (ci.item.price * 1.1).floor * ci.amount } %>
+  
+  
+    <div class="text-right mb-4">
+      <h5>合計金額: <%= number_to_currency(total_price, unit: "¥", precision: 0) %></h5>
     </div>
-  </div>
-
-<% else %>
-  <div class="alert alert-info">
-    カートに商品がありません。
-  </div>
-<% end %>
+  
+    <div class="d-flex justify-content-between">
+      <%= link_to "買い物を続ける", items_path, class: "btn btn-secondary" %> <!--public削除-->
+      <div>
+        <%= link_to "カートを空にする", destroy_all_public_cart_items_path, method: :delete, data: { confirm: "全て削除しますか？" }, class: "btn btn-danger mr-2" %><!--public削除-->
+        <%= link_to "情報入力に進む", new_order_path, class: "btn btn-primary" %><!--public削除-->
+      </div>
+    </div>
+  
+  <% else %>
+    <div class="alert alert-info">
+      カートに商品がありません。
+    </div>
+  <% end %>
+</div>
