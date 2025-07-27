@@ -1,35 +1,49 @@
-# README
 # ながのCAKE ECサイト
-ご覧いただきありがとうございます。
-こちらはDMMWEBCAMPカリキュラム内で作成したWEBアプリケーションです。
+ご覧いただきありがとうございます。  
+こちらはDMMWEBCAMPカリキュラム内で作成したWEBアプリケーションです。  
 架空の洋菓子店の通販用サイトです。
 
 ## サイトの説明
-⻑野県にある⼩さな洋菓⼦店「ながのCAKE」の商品を全国に向けて通販を行うために開発したアプリケーションです。
-ECサイトと管理サイトに分かれており、管理から注文まで使えるよう設計、実装しました。 会員が機能
-実装されており、会員種別としては（管理者）ADMIN / （顧客）CUSTOMERと分かれております
+⻑野県にある⼩さな洋菓⼦店「ながのCAKE」の商品を全国に向けて通販を行うために開発したアプリケーションです。  
+ECサイトと管理サイトに分かれており、管理から注文まで使えるよう設計、実装しました。  
+会員種別としては（管理者）ADMIN / （顧客）CUSTOMERと分かれております。
 
-## 
+## サイトの特徴
+- 顧客向けのECサイトと、管理者向けの管理サイトを別に用意
+- クレジットカード／銀行振込の支払い方法
+- 配送先の複数登録
+- 商品や注文・顧客情報の一元管理
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 🛠 使用技術
+| 項目             | 技術／サービス名       |
+|------------------|------------------------|
+| 開発言語         | Ruby 3.1.2             |
+| フレームワーク   | Ruby on Rails 6.1.7.10   |
+| フロント         | Bootstrap 4            |
+| 認証             | Devise                 |
+| DB               | SQLite3 3.7.17（開発環境）    |
+| 画像アップロード | Active Storage         |
+| バージョン管理   | Git / GitHub           |
 
-Things you may want to cover:
+### 顧客（会員）側機能
+- ユーザー登録 / ログイン / 退会（Devise）
+- 商品一覧／詳細の閲覧（ログイン不要）
+- カートに追加（ログイン必須）
+- 配送先複数登録
+- 注文履歴の閲覧（一覧・詳細）
+- マイページでユーザ情報編集
+- クレジットカード／銀行振込による購入
+- 商品合計＋全国一律送料800円の自動計算
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### 管理者側機能
+- 管理者ログイン（事前登録）
+- 商品の新規登録／編集／販売停止
+- ジャンルの追加／変更
+- 顧客情報の確認・編集・ステータス変更
+- 注文履歴の一覧／詳細
+- 注文ステータス・製作ステータスの更新
+## 作成者
+- 木村菊次郎  
+- 青砥暸  
+- 平澪音  
+- 鈴木尚仁
