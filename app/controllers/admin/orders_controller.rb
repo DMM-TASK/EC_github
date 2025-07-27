@@ -1,6 +1,6 @@
 class Admin::OrdersController < ApplicationController
   def index
-    @orders = Order.page(params[:page]).order(created_at: :desc)
+    @orders = Order.reorder(created_at: :desc).page(params[:page]).per(10)
   end
   
   def show
