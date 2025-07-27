@@ -7,4 +7,12 @@ class Order < ApplicationRecord
   enum payment_method: { credit_card: 0, bank_transfer: 1 }
   enum status: { waiting_payment: 0, paid: 1, making: 2, preparing: 3, shipped: 4 }
 
+  def payment_method_i18n
+    I18n.t("activerecord.attributes.order.payment_method.#{payment_method}")
+  end
+
+  def status_i18n
+    I18n.t("activerecord.attributes.order.status.#{status}")
+  end
+
 end
