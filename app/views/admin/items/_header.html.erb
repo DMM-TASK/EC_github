@@ -1,5 +1,7 @@
 <div class="header">
-  <h3 class="header-logo">ロゴ</h3>
+  <h3 class="header-logo">
+    <%= link_to "ロゴ", root_path, class: "text-decoration-none text-dark" %>
+  </h3>
   <nav class="header-nav">
     <% if admin_signed_in? %>
       <ul>

@@ -24,8 +24,10 @@
         <% @items.each do |item| %>
           <div class="card shadow-sm rounded-4 border-0" style="min-width: 220px; max-width: 220px;">
             <% if item.image.attached? %>
+            <%= link_to item_path(item.id) do %>
               <%= image_tag item.image.variant(resize_to_limit: [200, 200]),
                     class: "card-img-top rounded-top p-3" %>
+            <% end %>
             <% else %>
               <div class="text-muted py-5">画像なし</div>
             <% end %>
