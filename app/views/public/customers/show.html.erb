@@ -10,59 +10,56 @@
   <div class="row">
     <div class="col">
       <h2 class="fw-bold p-3 bg-warning-subtle text-warning-emphasis">マイページ</h2>
-      <div class="d-flex justify-content-between align-items-center my-5">
-        <h4 class="mb=0"><%= @customer.full_name %>さんの登録情報</h4>
+      <div class="d-flex justify-content-between align-items-center my-4">
+        <h4 class="mb-0"><%= @customer.full_name %>さんの登録情報</h4>
         <%= link_to "編集する", edit_customer_path, class: "btn btn-success btn-sm" %>
       </div>
-        <div class="d-flex align-items-center">
-          <table class="table table-borderless">
-            <tr>
-            <th>会員ID</td>
-            <td><%= @customer.id %></td>
-            </tr>
-            <tr>
-            <th>氏名</td>
-            <td><%= @customer.first_name %>　<%= @customer.last_name %></td>
-            </tr>
-  
-            <tr>
-            <th>フリガナ</th>
-            <td><%= @customer.first_name_kana %>　<%= @customer.last_name_kana %></td>
-            </tr>
-  
-            <tr>
-            <th>郵便番号</th>
-            <td><%= @customer.postal_code %></td>
-            </tr>
-  
-            <tr>
-            <th>住所</th>
-            <td><%= @customer.address %></td>
-            </tr>
-  
-            <tr>
-            <th>電話番号</th>
-            <td><%= @customer.telephone_number %></td>
-            </tr>
-  
-            <tr>
-            <th>メールアドレス</th>
-            <td><%= @customer.email %></td>
-            </tr>
 
+      <div class="card shadow-sm border mb-4">
+        <div class="card-body">
+          <table class="table table-borderless mb-0">
             <tr>
-            <th>会員ステータス</th>
-            <th><%= @customer.is_active ? "有効" : "無効" %></th>
+              <th>会員ID</th>
+              <td><%= @customer.id %></td>
             </tr>
-
+            <tr>
+              <th>氏名</th>
+              <td><%= @customer.first_name %>　<%= @customer.last_name %></td>
+            </tr>
+            <tr>
+              <th>フリガナ</th>
+              <td><%= @customer.first_name_kana %>　<%= @customer.last_name_kana %></td>
+            </tr>
+            <tr>
+              <th>郵便番号</th>
+              <td><%= @customer.postal_code %></td>
+            </tr>
+            <tr>
+              <th>住所</th>
+              <td><%= @customer.address %></td>
+            </tr>
+            <tr>
+              <th>電話番号</th>
+              <td><%= @customer.telephone_number %></td>
+            </tr>
+            <tr>
+              <th>メールアドレス</th>
+              <td><%= @customer.email %></td>
+            </tr>
+            <tr>
+              <th>会員ステータス</th>
+              <td><%= @customer.is_active ? "有効" : "無効" %></td>
+            </tr>
           </table>
-        </div> 
-          <div class="mt-4 d-flex gap-3">
-            <%= link_to "配送先一覧を見る", addresses_path, class: "btn btn-outline-primary" %>
-          </div>
-          <div class="mt-4 d-flex gap-3">
-          <%= link_to "注文履歴を見る", orders_path, class: "btn btn-outline-primary" %>
-          </div>
+        </div>
       </div>
-   </div>
+
+      <div class="d-flex flex-wrap gap-3">
+        <%= link_to "配送先一覧を見る", addresses_path, class: "btn btn-outline-primary" %>
+      </div>
+      <div class="d-flex flex-wrap mt-3">
+      <%= link_to "注文履歴を見る", orders_path, class: "btn btn-outline-primary" %>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   namespace :admin do
     root to: 'homes#top'
     resources :items, only: [:index, :new, :create, :show, :edit, :update]
@@ -15,10 +16,11 @@ Rails.application.routes.draw do
     root to: 'homes#top'
     resources :items, only: [:index, :show]
     resources :addresses, only: [:index, :edit, :create, :update, :destroy]
+
     resources :orders, only: [:new, :create, :index, :show] do
       collection do
-        post 'confirm'  
-        get 'thanks'  
+        post 'confirm'
+        get 'thanks'
       end
     end 
 
@@ -40,16 +42,19 @@ Rails.application.routes.draw do
   post 'cart_items', to: 'public/cart_items#create'
 
   devise_for :customers, controllers: {
-  registrations: "publics/registrations",
-  sessions: 'publics/sessions',
-  passwords: 'publics/passwords'
+    registrations: "publics/registrations",
+    sessions: 'publics/sessions',
+    passwords: 'publics/passwords'
   }
 
   devise_for :admins, controllers: {
+
   sessions: 'admins/sessions',
   registrations: 'admins/registrations',
   passwords: 'admins/passwords'
+
   }
+
 
   get "/about" => "public/homes#about"
   get "customers/my_page/:id" => "public/customers#show", as: 'customer'

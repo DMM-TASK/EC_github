@@ -1,1 +1,19 @@
-<h2>ご注文ありがとうございました！</h2>
+<div>
+  <%= render "admin/items/header" %>
+</div>
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="text-center bg-white rounded-4 p-5 shadow" style="max-width: 600px; width: 100%;">
+    
+    <h2 class="text-success fw-bold mb-4" style="font-size: 2rem;">
+      🎉 ご注文ありがとうございました！🎉
+    </h2>
+
+    <p class="fs-5 text-secondary">
+      ご注文内容を確認し、発送の準備を進めてまいります。<br>
+      今後とも <span class="fw-bold text-danger">Nagano CAKE</span> をよろしくお願いいたします！
+    </p>
+
+    <%= link_to "トップページへ戻る", root_path, class: "btn btn-outline-success mt-4 px-4" %>
+  </div>
+</div>

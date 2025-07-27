@@ -14,17 +14,17 @@
     <% @cart_items.each do |item| %>
       <tr>
         <td><%= item.item.name %></td>
-        <td><%= number_to_currency(item.item.price, unit: "¥") %></td>
+        <td><%= number_to_currency(item.item.price, unit: "¥", precision: 0) %></td>
         <td><%= item.amount %></td>
         <% sub_total = item.item.price * item.amount %>
-        <td><%= number_to_currency(sub_total, unit: "¥") %></td>
+        <td><%= number_to_currency(sub_total, unit: "¥", precision: 0) %></td>
       </tr>
       <% total += sub_total %>
     <% end %>
     <% shipping_cost = 800 %>
     <tr>
       <td colspan="3" class="text-right font-weight-bold">合計</td>
-      <td><%= number_to_currency(total + shipping_cost, unit: "¥") %>（税込・送料<%= number_to_currency(shipping_cost, unit: "¥") %>）</td>
+      <td><%= number_to_currency(total + shipping_cost, unit: "¥", precision: 0) %>（税込・送料<%= number_to_currency(shipping_cost, unit: "¥", precision: 0) %>）</td>
     </tr>
   </tbody>
 </table>

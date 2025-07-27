@@ -8,6 +8,9 @@ ja: #enumを日本語で実装するため
           making: "製作中"
           preparing: "発送準備中"
           shipped: "発送済み"
+        payment_method:
+         credit_card: "クレジットカード"
+         bank_transfer: "銀行振込"
 
       order_detail:
         making_status:
